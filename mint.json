@@ -18,74 +18,80 @@
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "url": "mailto:support@olimi.ai"
     }
   ],
   "topbarCtaButton": {
     "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "url": "https://app.olimi.ai"
   },
-  "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
-    }
-  ],
   "anchors": [
     {
       "name": "Documentation",
       "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
+      "url": "installation"
     },
     {
-      "name": "Community",
+      "name": "API Reference",
       "icon": "slack",
-      "url": "https://mintlify.com/community"
+      "url": "api-reference"
     },
     {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "name": "Node Script",
+      "icon": "github",
+      "url": "https://github.com"
     }
   ],
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "Getting Started",
       "pages": [
         "introduction",
-        "quickstart",
-        "development"
+        "account-setup",
+        "installation"
       ]
     },
     {
-      "group": "Essentials",
+      "group": "API Reference",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        "api/introduction-api",
+        "api/make"
       ]
     },
     {
-      "group": "API Documentation",
+      "group": "Agents",
       "pages": [
-        "api-reference/introduction"
+        "Extensions",
+        "api/make"
       ]
     },
     {
-      "group": "Endpoint Examples",
+      "group": "Customers",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "Extensions",
+        "api/make"
+      ]
+    },
+    {
+      "group": "Campaigns",
+      "pages": [
+        "Extensions",
+        "api/make"
+      ]
+    },
+    {
+      "group": "Recordings",
+      "pages": [
+        "Extensions",
+        "api/make"
+      ]
+    },
+    {
+      "group": "Extensions",
+      "pages": [
+        "Extensions",
+        "api/make"
       ]
     }
-  ],
-  "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
-  }
+  ]
 }
