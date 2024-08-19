@@ -7,12 +7,12 @@
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#111111",
+    "light": "#999999",
+    "dark": "#111111",
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#111111",
+      "to": "#999999"
     }
   },
   "topbarLinks": [
@@ -29,7 +29,7 @@
     {
       "name": "Documentation",
       "icon": "book-open-cover",
-      "url": "installation"
+      "url": "introduction"
     },
     {
       "name": "API Reference",
@@ -37,9 +37,14 @@
       "url": "api-reference"
     },
     {
-      "name": "Node Script",
+      "name": "PBX NPX Script",
       "icon": "github",
       "url": "https://github.com"
+    },
+    {
+      "name": "Community",
+      "icon": "discord",
+      "url": "https://discord.com"
     }
   ],
   "navigation": [
@@ -61,36 +66,48 @@
     {
       "group": "Agents",
       "pages": [
-        "Extensions",
-        "api/make"
+        "api/endpoint/agents/view",
+        "api/endpoint/agents/create",
+        "api/endpoint/agents/edit",
+        "api/endpoint/agents/delete"
       ]
     },
     {
       "group": "Customers",
       "pages": [
-        "Extensions",
-        "api/make"
+        "api/endpoint/customers/create",
+        "api/endpoint/customers/create",
+        "api/endpoint/customers/create",
+        "api/endpoint/customers/create",
+        "api/endpoint/customers/create",
+        "api/endpoint/customers/create",
+        "api/endpoint/customers/create",
+        "api/endpoint/customers/create"
       ]
     },
     {
       "group": "Campaigns",
       "pages": [
-        "Extensions",
-        "api/make"
+        "api/endpoint/campaigns/create",
+        "api/endpoint/customers/create",
+        "api/endpoint/customers/create",
+        "api/endpoint/customers/create"
       ]
     },
-    {
-      "group": "Recordings",
-      "pages": [
-        "Extensions",
-        "api/make"
-      ]
-    },
+    
     {
       "group": "Extensions",
       "pages": [
-        "Extensions",
-        "api/make"
+        "api/recordings/campaigns/create",
+        "api/recordings/campaigns/create",
+        "api/recordings/campaigns/create",
+        "api/recordings/campaigns/create"
+      ]
+    },
+    {
+      "group": "Recordings (Webhook)",
+      "pages": [
+        "api/recordings/campaigns/create"
       ]
     }
   ]

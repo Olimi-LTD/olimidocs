@@ -1,9 +1,9 @@
 ---
-title: 'Installation'
+title: 'PBX Installation'
 description: 'Learn how to connect your PBX and extensions'
 ---
 
-## What You Will Need
+## Prerequisite
 
 - **Asterisk 16.6+** installed on your Linux device or a supporting GUI.
 - **Node Package Manager (NPM)** to install the necessary package on the same Linux server as your Asterisk.
@@ -48,8 +48,11 @@ Ensure that port 3000 is open on your router to allow external connections.
 Disable any NAT (Network Address Translation) and firewalls for port 3000 using the following commands:
 
 ```bash
-sudo iptables -A INPUT -p tcp --dport 3000 -j ACCEPT
-sudo iptables -A INPUT -p udp --dport 3000 -j ACCEPT
+sudo iptables -A INPUT -p udp --dport 5060 -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 5060 -j ACCEPT
+sudo iptables -A INPUT -p udp --dport 10000:20000 -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 8088 -j ACCEPT
+sudo iptables-save | sudo tee /etc/iptables/rules.v4
 ```
 <Warning> 
 Disabling firewalls can expose your system to potential security risks. Ensure you understand the implications before proceeding.
@@ -76,3 +79,6 @@ After restarting Asterisk, check the logs to verify that the ARI connection has 
 
 By following these steps, you will have successfully installed and configured the Olimi Ltd package on your Asterisk system. For further details and troubleshooting, refer to the official documentation or support channels.
 
+<Card title="Book A Technical Call" icon="link" href="https://calendar.app.google/aWmgaGtPSh4Q8PF98">
+  You can book your technical call with us so we can assist you in setting up your PBX
+</Card>

@@ -3,3 +3,94 @@ title: 'Account Setup'
 description: 'Here we will show you how to set up your account on the Olimi dashboard'
 ---
 
+## Create Agent
+
+Create your first agent to select how you want your agent to answer your customers by giving it basic information about itself and the your company. 
+
+<AccordionGroup>
+  <Accordion title="Basic Information" icon="circle-info">
+    Provide basic information about your agent by adding:
+    <Br />
+<Steps>
+  <Step title="Select Agent Type">
+    Different agent types handle calls differently.
+  </Step>
+  <Step title="Name Your Agent">
+    This is the name the agent will introduce themselves with when needed.
+  </Step>
+  <Step title="Choose Language">
+    The AI agent will answer and listen to.
+  </Step>
+  <Step title="Select Dialect">
+    The AI agent will be talking in.
+  </Step>
+  <Step title="Pick Voice">
+    You can listen to the voice when generating an introduction sentence.
+  </Step>
+</Steps>
+  </Accordion>
+  <Accordion title="AI Prompt" icon="gear">
+  <Steps>
+  <Step title="Service/Product Description">
+    Add information about the product or service, this will be the bases of most questions about your product/service.
+  </Step>
+  <Step title="Call Script">
+    Add here how the AI should flow through the call. You can add square brackets before each example sentence to add instructions about when to use that sentence. Make sure you test your calls to make sure the AI flows how you expect it to.
+  </Step>
+  <Step title="Introduction Sentence">
+    Here you can generate your first sentence when you need to, this will be said right after the caller says their first response. You can listen to each sentence separately and add multiple ones to be selected randomly for each call.
+  </Step>
+  </Steps>
+  </Accordion>
+  <Accordion title="Test Call" icon="microscope">
+    Make sure you test your calls well before you add the agent to a live campaign.
+    <Warning>
+    Make sure you have already set up your [PBX installation](installation) and added at least one extension before you can test your calls.
+    </Warning>
+  </Accordion>
+</AccordionGroup>
+
+## Create Contacts
+
+To start adding contacts to call you first need to create a contact list, then add contacts to this list.
+<Tip>
+You can also connect the Olimi API to your CRM to dynamically add contacts to your contacts list, if your campaign is connected to this list and you have an active campaign it will call each new contact when they are added.
+</Tip>
+
+### Add Contact Individually
+Ater you've created your list you can then start adding your contacts one by one. The only required filed is the phone number, however adding more fields to your contact can help the AI during a call. Especially the gender if the AI is talking in a gender specific language.
+### Upload Contacts
+To add multiple contacts all at once, first you need to download the template and update all your contact information to that list. Then you will need to upload your sheet to be added to your contact list.
+## Connect your PBX
+To connect your PBX make sure you follow these [instructions](installation) to install and run the script on the same machine as you Asterisks. If you need further assistant you can book a [free introductory call](https://calendar.app.google/aWmgaGtPSh4Q8PF98) with our technical team.
+## Create Extensions
+After you have successfully connected your PBX make sure you have add your Extensions. We recommend to create new extensions on your PBX. Make sure that your active extensions have the capacity to make external calls if they are used at the same time. 
+<Br />
+ To add an extension you need to add the extension name/number, the type of extension SIP or PJSIP then add which trunk it should use.
+## Create Campaign
+You are then finally ready to make a campaign, To add a campaign you need to need to:
+ <AccordionGroup>
+
+  <Accordion title="Add Basic Information" icon="circle-info">
+  <Steps>
+  <Step title="Campaign Name">
+    Add a friendly name to your campaign.
+  </Step>
+  <Step title="Select Contact List">
+    Select your contact list.
+  </Step>
+  <Step title="Select Agent">
+   Select your agent
+  </Step>
+  <Step title="Daily Limit">
+    Set the maximum minutes that will be consumed each day from this campaign. Setting this to 0 will cause it to be unlimited, ,meaning it will only stop until all contacts have been completed.
+  </Step>
+  </Steps>
+  </Accordion>
+  <Accordion title="Working Hours" icon="clock">
+    These are the working hours and days that the AI will work from and to. You can select "Sunday-Saturday" to have it work 7 days a week and select 00:00 to 24:00 to have it work 24/7.
+  </Accordion>
+  <Accordion title="Retries" icon="phone">
+   Finally select how many times the AI should retry calling a contact if their number is busy or unanswered. Setting this Option to 0 will cause it only to call a contact once, and not be called again regardless of the attempted outcome status of the call (answered, busy etc.)
+  </Accordion>
+</AccordionGroup>
