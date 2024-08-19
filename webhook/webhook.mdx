@@ -1,0 +1,37 @@
+---
+title: 'Webhook Overview'
+description: 'Connect all of your recordings to any CRM'
+---
+
+Webhooks can send your recordings on any calls made from the AI. Only Recordings are currently supported on Webhooks
+
+## Webhooks setup
+
+To set up Webhooks, go to Settings > Webhooks in the Dashboard.
+Add the webhook URL you would like to receive events for.
+
+## Responding to Recording Events
+
+Webhook events are sent via POST according to the [JSON:API specification](https://jsonapi.org/format/).
+
+All attributes of recordings are included in the payload. All call statuses and campaigns (not including test calls) are sent through the webhook, so you will need to filter the webhooks you need from your end.
+
+Example recording event from webhook:
+
+```javascript
+{
+  "recording_id": "rec123456789",
+  "call_status": "Answered",
+  "customer_id": "cust987654321",
+  "full_name": "John Doe",
+  "number": "+1234567890",
+  "agent_id": "agent112233",
+  "agent_name": "Jane Smith",
+  "Extension": "123",
+  "campaign_id": "camp445566",
+  "campaign_name": "Summer Promo 2024",
+  "recording": "https://example.com/recordings/rec123456789.mp3",
+  "minutes": 15,
+  "datetime": "2024-08-14T14:30:00Z"
+}
+```

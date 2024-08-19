@@ -64,50 +64,13 @@
       ]
     },
     {
-      "group": "Agents",
-      "pages": [
-        "api/endpoint/agents/view",
-        "api/endpoint/agents/create",
-        "api/endpoint/agents/edit",
-        "api/endpoint/agents/delete"
-      ]
-    },
-    {
-      "group": "Customers",
-      "pages": [
-        "api/endpoint/customers/create",
-        "api/endpoint/customers/create",
-        "api/endpoint/customers/create",
-        "api/endpoint/customers/create",
-        "api/endpoint/customers/create",
-        "api/endpoint/customers/create",
-        "api/endpoint/customers/create",
-        "api/endpoint/customers/create"
-      ]
-    },
-    {
-      "group": "Campaigns",
-      "pages": [
-        "api/endpoint/campaigns/create",
-        "api/endpoint/customers/create",
-        "api/endpoint/customers/create",
-        "api/endpoint/customers/create"
-      ]
-    },
-    
-    {
-      "group": "Extensions",
-      "pages": [
-        "api/recordings/campaigns/create",
-        "api/recordings/campaigns/create",
-        "api/recordings/campaigns/create",
-        "api/recordings/campaigns/create"
-      ]
-    },
-    {
-      "group": "Recordings (Webhook)",
-      "pages": [
-        "api/recordings/campaigns/create"
+      "group": "API's & Webhook",
+      "pages": ["webhook/webhook",
+      "api-auth",
+        "api/endpoint/view-list",
+        "api/endpoint/create-customer",
+        "api/endpoint/delete-customer"
+        
       ]
     }
   ]
