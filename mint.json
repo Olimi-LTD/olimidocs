@@ -1,247 +1,75 @@
 {
-  "openapi": "3.0.1",
-  "info": {
-    "title": "Contact Management API",
-    "description": "API for managing contact lists and contacts within those lists",
-    "version": "1.0.0"
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Starter Kit",
+  "logo": {
+    "dark": "/logo/dark.svg",
+    "light": "/logo/light.svg"
   },
-  "servers": [
-    {
-      "url": "http://api.contactmanagement.com"
-    }
-  ],
-  "security": [
-    {
-      "bearerAuth": []
-    }
-  ],
-  "paths": {
-    "/contact-lists": {
-      "get": {
-        "description": "Retrieves all contact lists with their UUIDs",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A list of contact lists",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ContactList"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/contact-lists/{contactListUUID}/contacts": {
-      "post": {
-        "description": "Adds a new contact to the specified contact list",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "contactListUUID",
-            "in": "path",
-            "description": "UUID of the contact list to add the contact to",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "The contact to be added",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewContact"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Contact successfully added",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Contact"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
+  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#111111",
+    "light": "#999999",
+    "dark": "#111111",
+    "anchors": {
+      "from": "#111111",
+      "to": "#999999"
     }
   },
-  "components": {
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
-      }
-    },
-    "schemas": {
-      "ContactList": {
-        "type": "object",
-        "required": [
-          "uuid",
-          "name"
-        ],
-        "properties": {
-          "uuid": {
-            "type": "string",
-            "format": "uuid",
-            "description": "UUID of the contact list"
-          },
-          "name": {
-            "type": "string",
-            "description": "Name of the contact list"
-          }
-        }
-      },
-      "NewContact": {
-        "type": "object",
-        "required": [
-          "firstName",
-          "lastName",
-          "email",
-          "gender"
-        ],
-        "properties": {
-          "firstName": {
-            "type": "string",
-            "description": "First name of the contact"
-          },
-          "lastName": {
-            "type": "string",
-            "description": "Last name of the contact"
-          },
-          "email": {
-            "type": "string",
-            "format": "email",
-            "description": "Email address of the contact"
-          },
-          "phoneNumber": {
-            "type": "string",
-            "description": "Phone number of the contact (optional)"
-          },
-          "gender": {
-            "type": "string",
-            "enum": ["male", "female", "other"],
-            "description": "Gender of the contact"
-          }
-        }
-      },
-      "Contact": {
-        "type": "object",
-        "required": [
-          "uuid",
-          "firstName",
-          "lastName",
-          "email",
-          "gender"
-        ],
-        "properties": {
-          "uuid": {
-            "type": "string",
-            "format": "uuid",
-            "description": "UUID of the contact"
-          },
-          "firstName": {
-            "type": "string",
-            "description": "First name of the contact"
-          },
-          "lastName": {
-            "type": "string",
-            "description": "Last name of the contact"
-          },
-          "email": {
-            "type": "string",
-            "format": "email",
-            "description": "Email address of the contact"
-          },
-          "phoneNumber": {
-            "type": "string",
-            "description": "Phone number of the contact (optional)"
-          },
-          "gender": {
-            "type": "string",
-            "enum": ["male", "female", "other"],
-            "description": "Gender of the contact"
-          }
-        }
-      },
-      "Error": {
-        "type": "object",
-        "required": [
-          "error",
-          "message"
-        ],
-        "properties": {
-          "error": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
-          }
-        }
-      }
+  "topbarLinks": [
+    {
+      "name": "Support",
+      "url": "mailto:support@olimi.ai"
     }
-  }
+  ],
+  "topbarCtaButton": {
+    "name": "Dashboard",
+    "url": "https://app.olimi.ai"
+  },
+  "anchors": [
+    {
+      "name": "Documentation",
+      "icon": "book-open-cover",
+      "url": "introduction"
+    },
+    {
+      "name": "API Reference",
+      "icon": "slack",
+      "url": "api-reference"
+    },
+    {
+      "name": "PBX NPX Script",
+      "icon": "github",
+      "url": "https://github.com"
+    },
+    {
+      "name": "Community",
+      "icon": "discord",
+      "url": "https://discord.com"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Getting Started",
+      "pages": [
+        "introduction",
+        "account-setup",
+        "installation"
+      ]
+    },
+    {
+      "group": "API Overview",
+      "pages": [
+        "api/make",
+        "webhook/webhook",
+        "api-auth"
+      ]
+    },
+    {
+      "group": "API Reference",
+      "pages": [
+        "api/endpoint/view-list",
+        "api/endpoint/create-customer"
+      ]
+    }
+  ]
 }
