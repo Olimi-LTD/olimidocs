@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.1",
+  "openapi": "3.0.0",
   "info": {
     "title": "Contact Management API",
     "description": "API for managing contact lists and contacts within those lists",
