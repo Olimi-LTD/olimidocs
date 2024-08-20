@@ -1,23 +1,29 @@
 ---
 title: Introduction
-description: 'Welcome to the home of your new documentation'
+description: 'Welcome to the comprehensive documentation for Olimi, your cutting-edge AI-powered communication solution.'
 ---
 ## How It Works
-When we set out to build Olimi...
+Olimi seamlessly integrates advanced AI technology with your existing communication infrastructure, revolutionizing how you manage and optimize your telecommunications.
+
 ```mermaid
 flowchart LR
     id1(Olimi AI) <--> id2(Node Script)
-    id2 <--> id3(Asterisks PBX)
+    subgraph Your Server
+    id2 <--> id3(fa:fa-asterisk Asterisks PBX)
     id3 <--> id4(Extensions)
     id4 <--> id5(SIP Trunk)
     id4 <--> id6(PSTN)
     id4 <--> id7(GSM)
     id4 <--> id8(WebRTC)
     id4 <--> id9(VoIP)
+    end
 ```
-## Setting up
 
-The first step to world-class documentation is setting up your editing environments.
+Our innovative system connects Olimi AI to your server through a Node script, which interfaces with the Asterisk PBX. This setup allows for seamless integration with various communication channels, including SIP Trunks, PSTN, GSM, WebRTC, and VoIP, providing you with a versatile and powerful communication solution.
+
+## Getting Started
+
+To harness the full potential of Olimi, follow these essential steps:
 
 <CardGroup cols={2}>
   <Card
@@ -25,41 +31,43 @@ The first step to world-class documentation is setting up your editing environme
     icon="pen-to-square"
     href="account-setup"
   >
-    Get your docs set up locally for easy development
+    Configure your Olimi account for optimal performance and customization.
   </Card>
   <Card
     title="PBX Installation"
     icon="phone"
     href="installation"
   >
-    Preview your changes before you push to make sure they're perfect
+    Set up and integrate the Asterisk PBX with your existing infrastructure.
   </Card>
 </CardGroup>
 
-## Get Even Deeper
+## Explore Advanced Features
 
-Update your docs to your brand and add valuable content for the best user conversion.
+Dive deeper into Olimi's capabilities to maximize your communication efficiency:
 
 <CardGroup cols={3}>
   <Card
     title="REST API"
-    icon="palette"
-    href="api/introduction"
+    icon="code"
+    href="api-auth"
   >
-    Customize your docs to your company's colors and brands
+    Leverage our API to integrate Olimi with your existing systems and workflows.
   </Card>
   <Card
     title="Webhook"
-    icon="code"
-    href="https://mintlify.com/docs/api-playground/openapi"
+    icon="webhook"
+    href="webhook/webhook"
   >
-    Automatically generate endpoints from an OpenAPI spec
+    Set up real-time notifications and automate actions based on communication events.
   </Card>
   <Card
     title="PBX NPM Script"
     icon="screwdriver-wrench"
-    href="https://mintlify.com/docs/components/accordion"
+    href="https://github.com"
   >
-    Build interactive features and designs to guide your users
+    Customize and extend Olimi's functionality using our Node.js scripts and modules.
   </Card>
 </CardGroup>
+
+We're excited to help you transform your communication infrastructure with Olimi. Explore our documentation to unlock the full potential of AI-powered telecommunications.

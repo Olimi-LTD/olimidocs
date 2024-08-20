@@ -125,9 +125,14 @@
       }
     }
   },
-  "ContactList": {
+  "components": {
+    "schemas": {
+      "ContactList": {
         "type": "object",
-        "required": ["uuid", "name"],
+        "required": [
+          "uuid",
+          "name"
+        ],
         "properties": {
           "uuid": {
             "type": "string",
@@ -142,7 +147,11 @@
       },
       "NewContact": {
         "type": "object",
-        "required": ["firstName", "lastName", "email"],
+        "required": [
+          "firstName",
+          "lastName",
+          "email"
+        ],
         "properties": {
           "firstName": {
             "type": "string",
@@ -161,7 +170,12 @@
       },
       "Contact": {
         "type": "object",
-        "required": ["uuid", "firstName", "lastName", "email"],
+        "required": [
+          "uuid",
+          "firstName",
+          "lastName",
+          "email"
+        ],
         "properties": {
           "uuid": {
             "type": "string",
@@ -185,7 +199,10 @@
       },
       "Error": {
         "type": "object",
-        "required": ["error", "message"],
+        "required": [
+          "error",
+          "message"
+        ],
         "properties": {
           "error": {
             "type": "integer",

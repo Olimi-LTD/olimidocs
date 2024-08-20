@@ -1,5 +1,72 @@
 ---
-title: 'Authentication'
-description: 'See how you should connect to our API's'
+title: 'API Authentication'
+description: 'See how you should connect to our APIs'
+icon: gear-code
 ---
 
+Secure access to the Olimi API is crucial for protecting your data and ensuring the integrity of your communications. This guide will walk you through the authentication process for the Olimi API.
+
+## Authentication Method
+
+Olimi uses Bearer Token authentication for all API requests. This method is simple, secure, and widely supported across different platforms and programming languages.
+
+### Obtaining a Bearer Token
+
+To get started with the Olimi API, you'll need to obtain a bearer token:
+
+1. Log in to your Olimi dashboard.
+2. Navigate to the "Settings" section.
+3. Click on "API & Webhooks".
+4. Copy and securely store your bearer token.
+
+### Using the Bearer Token
+
+Include your bearer token in the `Authorization` header of each API request:
+
+```http
+Authorization: Bearer YOUR_BEARER_TOKEN
+```
+
+Example using cURL:
+
+```bash
+curl -H "Authorization: Bearer YOUR_BEARER_TOKEN" https://api.olimi.com/v1/endpoint
+```
+
+Example using JavaScript (with fetch):
+
+```javascript
+fetch('https://api.olimi.com/v1/endpoint', {
+  headers: {
+    'Authorization': 'Bearer YOUR_BEARER_TOKEN'
+  }
+})
+.then(response => response.json())
+.then(data => console.log(data));
+```
+
+## Best Practices
+
+To ensure the security of your Olimi account and data, follow these best practices:
+
+1. **Keep your token secure**: Never share your bearer token publicly or commit it to version control systems.
+2. **Use environment variables**: Store your bearer token in environment variables rather than hardcoding it in your application.
+3. **Implement token rotation**: Regularly generate new tokens and update your applications to use the new tokens.
+4. **Use HTTPS**: Always use HTTPS for API communications to ensure data privacy and prevent man-in-the-middle attacks.
+5. **Minimize token exposure**: Only use your bearer token in server-side code. Never use it in client-side JavaScript that runs in a user's browser.
+
+## Error Handling
+
+If your authentication fails, you'll receive a `401 Unauthorized` HTTP status code. Common reasons for authentication failures include:
+
+- Invalid bearer token
+- Expired bearer token
+- Incorrectly formatted Authorization header
+
+Always check for and handle authentication errors in your applications.
+
+## Support
+
+If you encounter any issues with authentication or need further assistance, please contact our support team at support@olimi.com.
+
+Remember, your bearer token is the key to your Olimi account's API access. Keep it confidential and secure at all times.
