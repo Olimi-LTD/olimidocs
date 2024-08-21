@@ -32,11 +32,6 @@
       "url": "introduction"
     },
     {
-      "name": "API Reference",
-      "icon": "slack",
-      "url": "api-reference"
-    },
-    {
       "name": "PBX NPX Script",
       "icon": "github",
       "url": "https://github.com"
@@ -59,7 +54,7 @@
     {
       "group": "API Overview",
       "pages": [
-        "api/make",
+        "api-reference/make",
         "webhook/webhook",
         "api-auth"
       ]
@@ -67,9 +62,9 @@
     {
       "group": "API Reference",
       "pages": [
-        "api/endpoint/view-list",
-        "api/endpoint/create",
-        "api/endpoint/create-customer"
+        "api-/endpoint/view-list",
+        "api-reference/endpoint/create",
+        "api-reference/endpoint/create-customer"
       ]
     }
   ]
