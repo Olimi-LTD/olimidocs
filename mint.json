@@ -68,6 +68,7 @@
       "group": "API Reference",
       "pages": [
         "api/endpoint/view-list",
+        "api/endpoint/create",
         "api/endpoint/create-customer"
       ]
     }

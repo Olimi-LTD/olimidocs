@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Contact Management API",
-    "description": "API for managing contact lists and contacts within those lists",
+    "title": "OpenAPI Plant Store",
+    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
     "license": {
       "name": "MIT"
     },
@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "http://api.olimi.ai"
+      "url": "http://sandbox.mintlify.com"
     }
   ],
   "security": [
@@ -19,18 +19,29 @@
     }
   ],
   "paths": {
-    "/contact-lists": {
+    "/plants": {
       "get": {
-        "description": "Retrieves all contact lists with their UUIDs",
+        "description": "Returns all plants from the system that the user has access to",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The maximum number of results to return",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
-            "description": "A list of contact lists",
+            "description": "Plant response",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/ContactList"
+                    "$ref": "#/components/schemas/Plant"
                   }
                 }
               }
@@ -47,29 +58,15 @@
             }
           }
         }
-      }
-    },
-    "/contact-lists/{contactListUUID}/contacts": {
+      },
       "post": {
-        "description": "Adds a new contact to the specified contact list",
-        "parameters": [
-          {
-            "name": "contactListUUID",
-            "in": "path",
-            "description": "UUID of the contact list to add the contact to",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
+        "description": "Creates a new plant in the store",
         "requestBody": {
-          "description": "The contact to be added",
+          "description": "Plant to add to the store",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewContact"
+                "$ref": "#/components/schemas/NewPlant"
               }
             }
           },
@@ -77,17 +74,17 @@
         },
         "responses": {
           "200": {
-            "description": "Contact successfully added",
+            "description": "plant response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Contact"
+                  "$ref": "#/components/schemas/Plant"
                 }
               }
             }
           },
           "400": {
-            "description": "Unexpected error",
+            "description": "unexpected error",
             "content": {
               "application/json": {
                 "schema": {
@@ -99,28 +96,28 @@
         }
       }
     },
-    "/contacts/{contactUUID}": {
+    "/plants/{id}": {
       "delete": {
-        "description": "Deletes a contact based on the UUID supplied",
+        "description": "Deletes a single plant based on the ID supplied",
         "parameters": [
           {
-            "name": "contactUUID",
+            "name": "id",
             "in": "path",
-            "description": "UUID of the contact to delete",
+            "description": "ID of plant to delete",
             "required": true,
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "type": "integer",
+              "format": "int64"
             }
           }
         ],
         "responses": {
           "204": {
-            "description": "Contact deleted successfully",
+            "description": "Plant deleted",
             "content": {}
           },
           "400": {
-            "description": "Unexpected error",
+            "description": "unexpected error",
             "content": {
               "application/json": {
                 "schema": {
@@ -135,82 +132,48 @@
   },
   "components": {
     "schemas": {
-      "ContactList": {
-        "type": "object",
+      "Plant": {
         "required": [
-          "uuid",
           "name"
         ],
+        "type": "object",
         "properties": {
-          "uuid": {
-            "type": "string",
-            "format": "uuid",
-            "description": "UUID of the contact list"
-          },
           "name": {
-            "type": "string",
-            "description": "Name of the contact list"
+            "description": "The name of the plant",
+            "type": "string"
+          },
+          "tag": {
+            "description": "Tag to specify the type",
+            "type": "string"
           }
         }
       },
-      "NewContact": {
-        "type": "object",
-        "required": [
-          "firstName",
-          "lastName",
-          "email"
-        ],
-        "properties": {
-          "firstName": {
-            "type": "string",
-            "description": "First name of the contact"
+      "NewPlant": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Plant"
           },
-          "lastName": {
-            "type": "string",
-            "description": "Last name of the contact"
-          },
-          "email": {
-            "type": "string",
-            "format": "email",
-            "description": "Email address of the contact"
+          {
+            "required": [
+              "id"
+            ],
+            "type": "object",
+            "properties": {
+              "id": {
+                "description": "Identification number of the plant",
+                "type": "integer",
+                "format": "int64"
+              }
+            }
           }
-        }
-      },
-      "Contact": {
-        "type": "object",
-        "required": [
-          "uuid",
-          "firstName",
-          "lastName",
-          "email"
-        ],
-        "properties": {
-          "uuid": {
-            "type": "string",
-            "format": "uuid",
-            "description": "UUID of the contact"
-          },
-          "firstName": {
-            "type": "string",
-            "description": "First name of the contact"
-          },
-          "lastName": {
-            "type": "string",
-            "description": "Last name of the contact"
-          },
-          "email": {
-            "type": "string",
-            "format": "email",
-            "description": "Email address of the contact"
-          }
-        }
+        ]
       },
       "Error": {
-        "type": "object",
         "required": [
           "error",
           "message"
         ],
+        "type": "object",
         "properties": {
           "error": {
             "type": "integer",
