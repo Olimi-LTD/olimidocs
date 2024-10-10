@@ -76,7 +76,9 @@
         "api-reference/endpoint/delete-extension",
         "api-reference/endpoint/fetch-extensions",
         "api-reference/endpoint/show-extension",
-        "api-reference/endpoint/update-extension"
+        "api-reference/endpoint/update-extension",
+        "api-reference/endpoint/generate-audio",
+        "api-reference/endpoint/fetch-languages"
       ]
     }
   ]

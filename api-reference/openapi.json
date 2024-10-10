@@ -864,10 +864,159 @@
           }
         }
       }
+    },
+    "/audio/generate": {
+      "post": {
+        "description": "Generates audio from text using a specified voice model.",
+        "requestBody": {
+          "description": "Payload containing the voice model ID and the sentence to convert to speech.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "voice_id": {
+                    "type": "string",
+                    "description": "The identifier for the voice model used to generate audio."
+                  },
+                  "sentence": {
+                    "type": "string",
+                    "description": "The sentence to be converted into speech."
+                  }
+                },
+                "required": [
+                  "voice_id",
+                  "sentence"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Audio generated successfully. The response includes a URL to the generated audio file.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "audio_url": {
+                      "type": "string",
+                      "description": "URL to the generated audio file."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input, unable to process the request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/languages": {
+      "get": {
+        "description": "Retrieves a list of all supported languages.",
+        "responses": {
+          "200": {
+            "description": "A list of supported languages.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "The unique identifier for the language"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "The name of the language"
+                      },
+                      "code": {
+                        "type": "string",
+                        "description": "The ISO language code"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "code"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unexpected error occurred while fetching languages.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "Language": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "The unique identifier for a language"
+            },
+            "name": {
+              "type": "string",
+              "description": "The name of the language"
+            },
+            "code": {
+              "type": "string",
+              "description": "The ISO language code"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "code"
+          ]
+        }
+      },
+      "GeneralAudio": {
+        "type": "object",
+        "properties": {
+          "voice_id": {
+            "type": "string",
+            "description": "The identifier for the voice model used to generate audio."
+          },
+          "sentence": {
+            "type": "string",
+            "description": "The sentence to be converted into speech."
+          }
+        },
+        "required": [
+          "voice_id",
+          "sentence"
+        ]
+      },
       "Extension": {
         "type": "object",
         "properties": {
