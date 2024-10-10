@@ -62,8 +62,21 @@
     {
       "group": "API Reference",
       "pages": [
-        "api-reference/endpoint/view-list",
-        "api-reference/endpoint/create-customer"
+        "api-reference/endpoint/update-company",
+        "api-reference/endpoint/get-customers-lists",
+        "api-reference/endpoint/create-customer",
+        "api-reference/endpoint/get-customer-list",
+        "api-reference/endpoint/import-customer-list",
+        "api-reference/endpoint/get-campaign",
+        "api-reference/endpoint/create-campaign",
+        "api-reference/endpoint/delete-campaign",
+        "api-reference/endpoint/update-campaign",
+        "api-reference/endpoint/get-countries",
+        "api-reference/endpoint/create-extension",
+        "api-reference/endpoint/delete-extension",
+        "api-reference/endpoint/fetch-extensions",
+        "api-reference/endpoint/show-extension",
+        "api-reference/endpoint/update-extension"
       ]
     }
   ]

@@ -131,10 +131,770 @@
           }
         }
       }
+    },
+    "/contacts/{contactListUUID}/clear": {
+      "delete": {
+        "description": "Clears all contacts in the specified roster (contact list).",
+        "parameters": [
+          {
+            "name": "contactListUUID",
+            "in": "path",
+            "description": "ID of the contact list (roster) to clear.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "All contacts in the contact list were cleared successfully.",
+            "content": {}
+          },
+          "400": {
+            "description": "Unexpected error occurred during the clear operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contacts/{contactListUUID}": {
+      "get": {
+        "description": "Retrieves all contacts in the specified contact list (roster).",
+        "parameters": [
+          {
+            "name": "contactListUUID",
+            "in": "path",
+            "description": "ID of the contact list (roster) to fetch the contacts from.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of contacts in the specified contact list.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Contact"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unexpected error occurred while fetching contacts.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contacts/import": {
+      "post": {
+        "description": "Imports contacts in bulk using a file (CSV).",
+        "requestBody": {
+          "description": "CSV file containing contacts to be imported.",
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "CSV file containing the contacts."
+                  },
+                  "contactListUUID": {
+                    "type": "string",
+                    "description": "ID of the contact list (roster) to import the contacts into."
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Contacts imported successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "imported_count": {
+                      "type": "integer",
+                      "description": "Number of contacts imported."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unexpected error occurred during the import operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/campaigns": {
+      "get": {
+        "description": "Retrieves all campaigns.",
+        "responses": {
+          "200": {
+            "description": "A list of all campaigns.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Campaign"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unexpected error occurred while fetching campaigns.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/campaigns/create": {
+      "post": {
+        "description": "Creates a new campaign.",
+        "requestBody": {
+          "description": "Details of the new campaign to be created.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the campaign"
+                  },
+                  "roster_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID of the roster associated with the campaign"
+                  },
+                  "agent_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID of the agent responsible for the campaign"
+                  },
+                  "working_day_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "UUID identifying the working day schedule for the campaign"
+                  },
+                  "max_daily_minutes": {
+                    "type": "integer",
+                    "description": "Maximum number of minutes per day for the campaign"
+                  },
+                  "max_retries": {
+                    "type": "integer",
+                    "description": "Maximum number of retries allowed in the campaign"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Description of the campaign"
+                  },
+                  "working_start_time": {
+                    "type": "string",
+                    "format": "time",
+                    "description": "Start time of working hours for the campaign"
+                  },
+                  "working_end_time": {
+                    "type": "string",
+                    "format": "time",
+                    "description": "End time of working hours for the campaign"
+                  },
+                  "is_active": {
+                    "type": "boolean",
+                    "description": "Status to activate or deactivate the campaign"
+                  }
+                },
+                "required": [
+                  "name",
+                  "roster_id",
+                  "agent_id",
+                  "working_day_id",
+                  "max_daily_minutes",
+                  "max_retries",
+                  "working_start_time",
+                  "working_end_time",
+                  "is_active"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Campaign created successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Campaign"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input, object invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/campaigns/{campaign_id}": {
+      "get": {
+        "description": "Retrieves a specific campaign by its ID.",
+        "parameters": [
+          {
+            "name": "campaign_id",
+            "in": "path",
+            "description": "ID of the campaign to retrieve.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Campaign details retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Campaign"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unexpected error occurred while retrieving the campaign.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/campaigns/{campaign_id}/delete": {
+      "delete": {
+        "description": "Deletes the specified campaign.",
+        "parameters": [
+          {
+            "name": "campaign_id",
+            "in": "path",
+            "description": "ID of the campaign to be deleted.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Campaign deleted successfully.",
+            "content": {}
+          },
+          "400": {
+            "description": "Unexpected error occurred while deleting the campaign.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/campaigns/{campaign_id}/update": {
+      "post": {
+        "description": "Updates the details of a specific campaign.",
+        "parameters": [
+          {
+            "name": "campaign_id",
+            "in": "path",
+            "description": "ID of the campaign to update.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Updated campaign details.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the campaign."
+                  },
+                  "working_day_id": {
+                    "type": "string",
+                    "description": "ID representing the working day schedule for the campaign."
+                  },
+                  "max_daily_minutes": {
+                    "type": "integer",
+                    "description": "Maximum minutes the campaign can run daily."
+                  },
+                  "max_retries": {
+                    "type": "integer",
+                    "description": "Maximum retries allowed per contact."
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "A short description of the campaign."
+                  },
+                  "working_start_time": {
+                    "type": "string",
+                    "format": "time",
+                    "description": "Start time for the campaign in the format HH:MM:SS."
+                  },
+                  "working_end_time": {
+                    "type": "string",
+                    "format": "time",
+                    "description": "End time for the campaign in the format HH:MM:SS."
+                  },
+                  "is_active": {
+                    "type": "boolean",
+                    "description": "Indicates whether the campaign is active."
+                  }
+                },
+                "required": [
+                  "name",
+                  "working_day_id",
+                  "max_daily_minutes",
+                  "max_retries",
+                  "working_start_time",
+                  "working_end_time",
+                  "is_active"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Campaign details updated successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Campaign"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unexpected error occurred while updating the campaign.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/company/update": {
+      "post": {
+        "description": "Updates the details of a specific company.",
+        "requestBody": {
+          "description": "Details of the company to be updated.",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data[name]": {
+                    "type": "string",
+                    "description": "Name of the company"
+                  },
+                  "data[working_day_id]": {
+                    "type": "string",
+                    "description": "ID representing the working day schedule for the company"
+                  },
+                  "data[country_id]": {
+                    "type": "string",
+                    "description": "ID of the country where the company is located"
+                  },
+                  "data[working_start_time]": {
+                    "type": "string",
+                    "format": "time",
+                    "description": "Start time for the company's operations in the format HH:MM:SS"
+                  },
+                  "data[working_end_time]": {
+                    "type": "string",
+                    "format": "time",
+                    "description": "End time for the company's operations in the format HH:MM:SS"
+                  },
+                  "data[newsletter]": {
+                    "type": "boolean",
+                    "description": "Indicates whether the company subscribes to newsletters"
+                  },
+                  "server_id": {
+                    "type": "string",
+                    "description": "ID of the server associated with the company"
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Image associated with the company"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Company details updated successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Company"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input, object invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/countries": {
+      "get": {
+        "description": "Retrieves a list of all countries.",
+        "responses": {
+          "200": {
+            "description": "A list of all countries.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "The unique identifier for the country"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "The name of the country"
+                      },
+                      "code": {
+                        "type": "string",
+                        "description": "The international dialing code of the country"
+                      },
+                      "currency": {
+                        "type": "string",
+                        "description": "The official currency used in the country"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "code",
+                      "currency"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unexpected error occurred while fetching countries.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/extensions/create": {
+      "post": {
+        "description": "Creates a new extension.",
+        "requestBody": {
+          "description": "Details of the new extension to be created.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Extension"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Extension created successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Extension"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input, object invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/extensions/{extension_id}/delete": {
+      "delete": {
+        "description": "Deletes a specific extension.",
+        "parameters": [
+          {
+            "name": "extension_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The unique identifier of the extension to delete."
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Extension deleted successfully."
+          },
+          "400": {
+            "description": "Error occurred while attempting to delete the extension.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/extensions": {
+      "get": {
+        "description": "Retrieves all extensions.",
+        "responses": {
+          "200": {
+            "description": "A list of all extensions.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Extension"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unexpected error occurred while fetching extensions.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/extensions/{extension_id}": {
+      "get": {
+        "description": "Retrieves details of a specific extension.",
+        "parameters": [
+          {
+            "name": "extension_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The unique identifier of the extension."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details of the specified extension.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Extension"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unexpected error occurred while fetching the extension details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/extensions/{extension_id}/update": {
+      "post": {
+        "description": "Updates details of a specific extension.",
+        "parameters": [
+          {
+            "name": "extension_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The unique identifier of the extension to update."
+          }
+        ],
+        "requestBody": {
+          "description": "Updated details of the extension.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Extension"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Extension updated successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Extension"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input, object invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "Extension": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name associated with the extension"
+          },
+          "trunk_name": {
+            "type": "string",
+            "description": "The trunk name associated with the extension"
+          },
+          "extension": {
+            "type": "string",
+            "description": "The extension number"
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the extension, e.g., SIP"
+          }
+        },
+        "required": [
+          "name",
+          "trunk_name",
+          "extension",
+          "type"
+        ]
+      },
       "ContactList": {
         "type": "object",
         "required": [
@@ -175,6 +935,154 @@
             "description": "Email address of the contact"
           }
         }
+      },
+      "Campaign": {
+        "type": "object",
+        "required": [
+          "name",
+          "roster_id",
+          "agent_id",
+          "working_day_id",
+          "max_daily_minutes",
+          "max_retries",
+          "description",
+          "working_start_time",
+          "working_end_time",
+          "is_active"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the campaign"
+          },
+          "roster_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "UUID of the roster associated with the campaign"
+          },
+          "agent_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "UUID of the agent responsible for the campaign"
+          },
+          "working_day_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "UUID identifying the working day schedule for the campaign"
+          },
+          "max_daily_minutes": {
+            "type": "integer",
+            "description": "Maximum number of minutes per day for the campaign"
+          },
+          "max_retries": {
+            "type": "integer",
+            "description": "Maximum number of retries allowed in the campaign"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the campaign"
+          },
+          "working_start_time": {
+            "type": "string",
+            "format": "time",
+            "description": "Start time of working hours for the campaign"
+          },
+          "working_end_time": {
+            "type": "string",
+            "format": "time",
+            "description": "End time of working hours for the campaign"
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "Status to activate or deactivate the campaign"
+          }
+        }
+      },
+      "Country": {
+        "type": "object",
+        "properties": {
+          "countries": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "The unique identifier for a country"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "The name of the country"
+                },
+                "code": {
+                  "type": "string",
+                  "description": "The international dialing code for the country"
+                },
+                "currency": {
+                  "type": "string",
+                  "description": "The official currency used in the country"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "code",
+                "currency"
+              ]
+            }
+          }
+        },
+        "required": [
+          "countries"
+        ]
+      },
+      "Company": {
+        "type": "object",
+        "properties": {
+          "data[name]": {
+            "type": "string",
+            "description": "Name of the company"
+          },
+          "data[working_day_id]": {
+            "type": "string",
+            "description": "ID representing the working day schedule for the company"
+          },
+          "data[country_id]": {
+            "type": "string",
+            "description": "ID of the country where the company is located"
+          },
+          "data[working_start_time]": {
+            "type": "string",
+            "format": "time",
+            "description": "Start time for the company's operations in the format HH:MM:SS"
+          },
+          "data[working_end_time]": {
+            "type": "string",
+            "format": "time",
+            "description": "End time for the company's operations in the format HH:MM:SS"
+          },
+          "data[newsletter]": {
+            "type": "boolean",
+            "description": "Indicates whether the company subscribes to newsletters"
+          },
+          "server_id": {
+            "type": "string",
+            "description": "ID of the server associated with the company"
+          },
+          "image": {
+            "type": "string",
+            "format": "binary",
+            "description": "Image associated with the company"
+          }
+        },
+        "required": [
+          "data[name]",
+          "data[working_day_id]",
+          "data[country_id]",
+          "data[working_start_time]",
+          "data[working_end_time]",
+          "server_id"
+        ]
       },
       "Contact": {
         "type": "object",
