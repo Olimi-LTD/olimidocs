@@ -679,250 +679,6 @@
         }
       }
     },
-    "/extensions/create": {
-      "post": {
-        "description": "Creates a new extension.",
-        "requestBody": {
-          "description": "Details of the new extension to be created.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Extension"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Extension created successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Extension"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid input, object invalid",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/extensions/{extension_id}/delete": {
-      "delete": {
-        "description": "Deletes a specific extension.",
-        "parameters": [
-          {
-            "name": "extension_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The unique identifier of the extension to delete."
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Extension deleted successfully."
-          },
-          "400": {
-            "description": "Error occurred while attempting to delete the extension.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/extensions": {
-      "get": {
-        "description": "Retrieves all extensions.",
-        "responses": {
-          "200": {
-            "description": "A list of all extensions.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Extension"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Unexpected error occurred while fetching extensions.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/extensions/{extension_id}": {
-      "get": {
-        "description": "Retrieves details of a specific extension.",
-        "parameters": [
-          {
-            "name": "extension_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The unique identifier of the extension."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Details of the specified extension.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Extension"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Unexpected error occurred while fetching the extension details.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/extensions/{extension_id}/update": {
-      "post": {
-        "description": "Updates details of a specific extension.",
-        "parameters": [
-          {
-            "name": "extension_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The unique identifier of the extension to update."
-          }
-        ],
-        "requestBody": {
-          "description": "Updated details of the extension.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Extension"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Extension updated successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Extension"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid input, object invalid",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/audio/generate": {
-      "post": {
-        "description": "Generates audio from text using a specified voice model.",
-        "requestBody": {
-          "description": "Payload containing the voice model ID and the sentence to convert to speech.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "voice_id": {
-                    "type": "string",
-                    "description": "The identifier for the voice model used to generate audio."
-                  },
-                  "sentence": {
-                    "type": "string",
-                    "description": "The sentence to be converted into speech."
-                  }
-                },
-                "required": [
-                  "voice_id",
-                  "sentence"
-                ]
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Audio generated successfully. The response includes a URL to the generated audio file.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "audio_url": {
-                      "type": "string",
-                      "description": "URL to the generated audio file."
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid input, unable to process the request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/languages": {
       "get": {
         "description": "Retrieves a list of all supported languages.",
@@ -971,10 +727,584 @@
           }
         }
       }
+    },
+    "/customer-lists": {
+      "get": {
+        "description": "Retrieves all customer lists with their UUIDs",
+        "responses": {
+          "200": {
+            "description": "A list of customer lists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CustomerList"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customer-lists/{customerListUUID}/customers": {
+      "post": {
+        "description": "Adds a new customer to the specified customer list",
+        "parameters": [
+          {
+            "name": "customerListUUID",
+            "in": "path",
+            "description": "UUID of the customer list to add the customer to",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The customer to be added",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewCustomer"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Customer successfully added",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Customer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customers/{customerUUID}": {
+      "delete": {
+        "description": "Deletes a customer based on the UUID supplied",
+        "parameters": [
+          {
+            "name": "customerUUID",
+            "in": "path",
+            "description": "UUID of the customer to delete",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Customer deleted successfully",
+            "content": {}
+          },
+          "400": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customers/{customerListUUID}/clear": {
+      "delete": {
+        "description": "Clears all customers in the specified list.",
+        "parameters": [
+          {
+            "name": "customerListUUID",
+            "in": "path",
+            "description": "ID of the customer list to clear.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "All customers in the customer list were cleared successfully.",
+            "content": {}
+          },
+          "400": {
+            "description": "Unexpected error occurred during the clear operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customers/{customerListUUID}": {
+      "get": {
+        "description": "Retrieves all customers in the specified customer list.",
+        "parameters": [
+          {
+            "name": "customerListUUID",
+            "in": "path",
+            "description": "ID of the customer list to fetch the customers from.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of customers in the specified customer list.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Customer"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unexpected error occurred while fetching customers.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customers/import": {
+      "post": {
+        "description": "Imports customers in bulk using a file (CSV).",
+        "requestBody": {
+          "description": "CSV file containing customers to be imported.",
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "CSV file containing the customers."
+                  },
+                  "customerListUUID": {
+                    "type": "string",
+                    "description": "ID of the customer list to import the customers into."
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Customers imported successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "imported_count": {
+                      "type": "integer",
+                      "description": "Number of customers imported."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unexpected error occurred during the import operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/calls": {
+      "get": {
+        "description": "Fetches a list of calls based on search parameters like name, campaign ID, and phone number.",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Name associated with the call",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "campaign",
+            "in": "query",
+            "description": "Campaign ID associated with the call",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "phone",
+            "in": "query",
+            "description": "Phone number associated with the call",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of calls that match the query parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Call"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/calls/{sid}/upload-attachment": {
+      "post": {
+        "description": "Uploads an attachment for a call identified by its SID.",
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "description": "Unique identifier (SID) of the call",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The file to be uploaded along with the duration of the call",
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "The file to be uploaded"
+                  },
+                  "duration_in_sec": {
+                    "type": "integer",
+                    "description": "Duration of the call in seconds"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "File uploaded successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "File uploaded successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed to upload the file or invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "Callback": {
+        "type": "object",
+        "required": [
+          "call_sid",
+          "call_summary",
+          "call_status"
+        ],
+        "properties": {
+          "call_sid": {
+            "type": "string",
+            "description": "Unique identifier for the call session (Call SID)"
+          },
+          "call_summary": {
+            "type": "object",
+            "description": "Summary of the call",
+            "properties": {
+              "transcript": {
+                "type": "array",
+                "description": "Conversation transcript with user and assistant roles",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "role": {
+                      "type": "string",
+                      "description": "Role of the participant in the conversation (e.g., 'user' or 'assistant')"
+                    },
+                    "content": {
+                      "type": "string",
+                      "description": "Content of the conversation by the respective role"
+                    }
+                  }
+                }
+              },
+              "characters": {
+                "type": "integer",
+                "description": "Total number of characters spoken in the call"
+              },
+              "input_tokens": {
+                "type": "integer",
+                "description": "Number of input tokens used in the call"
+              },
+              "output_tokens": {
+                "type": "integer",
+                "description": "Number of output tokens used in the call"
+              },
+              "duration": {
+                "type": "integer",
+                "description": "Total duration of the call in seconds"
+              }
+            }
+          },
+          "call_status": {
+            "type": "object",
+            "description": "Status of the call",
+            "properties": {
+              "status": {
+                "type": "string",
+                "description": "Final status of the call (e.g., 'completed', 'failed')"
+              }
+            }
+          }
+        }
+      },
+      "Call": {
+        "type": "object",
+        "required": [
+          "sid",
+          "name",
+          "phone",
+          "campaign",
+          "status"
+        ],
+        "properties": {
+          "sid": {
+            "type": "string",
+            "description": "Unique identifier (SID) of the call"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name associated with the call"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number associated with the call"
+          },
+          "campaign": {
+            "type": "string",
+            "description": "Campaign ID associated with the call"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status of the call (e.g., 'completed', 'in-progress')"
+          },
+          "duration": {
+            "type": "integer",
+            "description": "Duration of the call in seconds",
+            "nullable": true
+          },
+          "attachments": {
+            "type": "array",
+            "description": "Array of attachments related to the call",
+            "items": {
+              "type": "object",
+              "properties": {
+                "file_url": {
+                  "type": "string",
+                  "description": "URL to the uploaded attachment file"
+                },
+                "duration_in_sec": {
+                  "type": "integer",
+                  "description": "Duration of the attachment in seconds"
+                }
+              }
+            },
+            "nullable": true
+          }
+        }
+      },
+      "NewCustomer": {
+        "type": "object",
+        "required": [
+          "firstName",
+          "lastName",
+          "email",
+          "phoneNumber"
+        ],
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "First name of the customer"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name of the customer"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Email address of the customer"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "Phone number of the customer"
+          },
+          "address": {
+            "type": "object",
+            "description": "Address of the customer",
+            "properties": {
+              "street": {
+                "type": "string",
+                "description": "Street address of the customer"
+              },
+              "city": {
+                "type": "string",
+                "description": "City of the customer"
+              },
+              "state": {
+                "type": "string",
+                "description": "State of the customer"
+              },
+              "zipCode": {
+                "type": "string",
+                "description": "Zip code of the customer"
+              }
+            }
+          }
+        }
+      },
+      "CustomerList": {
+        "type": "object",
+        "required": [
+          "uuid",
+          "name",
+          "createdAt"
+        ],
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "format": "uuid",
+            "description": "UUID of the customer list"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the customer list"
+          },
+          "description": {
+            "type": "string",
+            "description": "Optional description of the customer list"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date and time when the customer list was created"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date and time when the customer list was last updated"
+          },
+          "customers": {
+            "type": "array",
+            "description": "Array of customers in the list",
+            "items": {
+              "$ref": "#/components/schemas/Customer"
+            }
+          }
+        }
+      },
       "Language": {
         "type": "array",
         "items": {
@@ -1059,6 +1389,62 @@
           "name": {
             "type": "string",
             "description": "Name of the contact list"
+          }
+        }
+      },
+      "Customer": {
+        "type": "object",
+        "required": [
+          "uuid",
+          "firstName",
+          "lastName",
+          "email",
+          "phoneNumber"
+        ],
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "format": "uuid",
+            "description": "UUID of the customer"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "First name of the customer"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name of the customer"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Email address of the customer"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "Phone number of the customer"
+          },
+          "address": {
+            "type": "object",
+            "description": "Address of the customer",
+            "properties": {
+              "street": {
+                "type": "string",
+                "description": "Street address of the customer"
+              },
+              "city": {
+                "type": "string",
+                "description": "City of the customer"
+              },
+              "state": {
+                "type": "string",
+                "description": "State of the customer"
+              },
+              "zipCode": {
+                "type": "string",
+                "description": "Zip code of the customer"
+              }
+            }
           }
         }
       },

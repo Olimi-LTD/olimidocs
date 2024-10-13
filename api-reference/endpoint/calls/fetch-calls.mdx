@@ -1,0 +1,27 @@
+---
+title: 'Fetch Calls'
+openapi: 'GET /calls'
+---
+
+Fetches a list of calls based on query parameters such as `name`, `campaign`, and `phone`. This endpoint allows users to filter calls by providing optional parameters.
+
+### Request Parameters
+
+- `name` (optional): Name associated with the call.
+- `campaign` (optional): Campaign ID to filter calls.
+- `phone` (optional): Phone number to filter calls.
+
+### Response Example
+
+#### Success (200 OK)
+
+```json
+[
+  {
+    "sid": "01914c3c8a09794588698a72cbecd4e0",
+    "name": "Test Call",
+    "phone": "03909309302",
+    "campaign": "d8dys8ada",
+    "status": "completed"
+  }
+]

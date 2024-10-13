@@ -1,0 +1,26 @@
+---
+title: 'Upload Call Attachment'
+openapi: 'POST /calls/{sid}/upload-attachment'
+---
+
+Uploads an attachment for the call identified by the given `sid`. This endpoint allows users to upload files (e.g., recordings) related to the call.
+
+### Request Example
+
+#### URL Parameters
+
+- `sid`: Unique identifier of the call.
+
+#### Form Data
+
+- `file`: The file to be uploaded.
+- `duration_in_sec`: Duration of the call in seconds.
+
+### Response Example
+
+#### Success (200 OK)
+
+```json
+{
+  "message": "File uploaded successfully"
+}
