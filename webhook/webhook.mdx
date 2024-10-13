@@ -21,18 +21,28 @@ Example recording event from webhook:
 
 ```javascript
 {
-  "recording_id": "rec123456789",
-  "call_status": "Answered",
-  "customer_id": "cust987654321",
-  "full_name": "John Doe",
-  "number": "+1234567890",
-  "agent_id": "agent112233",
-  "agent_name": "Jane Smith",
-  "Extension": "123",
-  "campaign_id": "camp445566",
-  "campaign_name": "Summer Promo 2024",
-  "recording": "https://example.com/recordings/rec123456789.mp3",
-  "minutes": 15,
-  "datetime": "2024-08-14T14:30:00Z"
+  "id": "string",  // Unique identifier for the call record
+  "minutes_used": "integer",  // Number of minutes used in the call
+  "call_sid": "string",  // Unique identifier for the call session
+  "recording_attachment": "string",  // URL to the recording attachment
+  "campaign": "string | null",  // Campaign ID associated with the call (nullable)
+  "contact": {
+    "details": {
+      "id": "string",  // Unique identifier for the contact
+      "first_name": "string",  // First name of the contact
+      "last_name": "string",  // Last name of the contact
+      "phone_number": "string",  // Phone number of the contact
+      "gender": "string",  // Gender of the contact
+      "email": "string | null",  // Email address of the contact (nullable)
+      "type": "string | null",  // Type of contact (nullable)
+      "is_confirmed": "boolean",  // Whether the contact is confirmed
+      "is_phone_number_correct": "boolean"  // Whether the phone number is correct
+    },
+    "roster_attachment": "string | null"  // URL to the roster attachment (nullable)
+  },
+  "has_transcript": "boolean",  // Whether the call has a transcript
+  "summary": "string",  // Summary of the call
+  "created_at": "string",  // Timestamp of when the call was created, formatted as date-time
+  "status": "string"  // Status of the call
 }
 ```
