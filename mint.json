@@ -54,33 +54,63 @@
     {
       "group": "API Overview",
       "pages": [
-        "api-reference/make",
-        "webhook/webhook",
-        "api-auth"
+        "api-reference/make"
       ]
     },
     {
-      "group": "API Reference",
+      "group": "Contact Management",
       "pages": [
-        "api-reference/endpoint/update-company",
         "api-reference/endpoint/contacts/get-contacts-lists",
         "api-reference/endpoint/contacts/create-contact",
         "api-reference/endpoint/contacts/get-contacts-list",
-        "api-reference/endpoint/contacts/import-contacts-list",
+        "api-reference/endpoint/contacts/import-contacts-list"
+      ]
+    },
+    {
+      "group": "Campaign Management",
+      "pages": [
         "api-reference/endpoint/campaigns/get-campaign",
         "api-reference/endpoint/campaigns/create-campaign",
         "api-reference/endpoint/campaigns/delete-campaign",
-        "api-reference/endpoint/campaigns/update-campaign",
+        "api-reference/endpoint/campaigns/update-campaign"
+      ]
+    },
+    {
+      "group": "Call Management",
+      "pages": [
+        "api-reference/endpoint/calls/fetch-calls",
+        "api-reference/endpoint/calls/upload-calls"
+      ]
+    },
+    {
+      "group": "Customer Management",
+      "pages": [
         "api-reference/endpoint/customers/add-customer-to-list",
         "api-reference/endpoint/customers/clear-customer-list",
         "api-reference/endpoint/customers/delete-customer",
         "api-reference/endpoint/customers/fetch-customer-list",
         "api-reference/endpoint/customers/fetch-customer-lists",
-        "api-reference/endpoint/customers/import-customers",
+        "api-reference/endpoint/customers/import-customers"
+      ]
+    },
+    {
+      "group": "Miscellaneous",
+      "pages": [
+        "api-reference/endpoint/update-company",
         "api-reference/endpoint/get-countries",
-        "api-reference/endpoint/fetch-languages",
-        "api-reference/endpoint/calls/fetch-calls",
-        "api-reference/endpoint/calls/upload-calls"
+        "api-reference/endpoint/fetch-languages"
+      ]
+    },
+    {
+      "group": "Webhook",
+      "pages": [
+        "webhook/webhook"
+      ]
+    },
+    {
+      "group": "API Authentication",
+      "pages": [
+        "api-auth"
       ]
     }
   ]
