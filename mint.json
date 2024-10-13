@@ -54,7 +54,19 @@
     {
       "group": "API Overview",
       "pages": [
-        "api-reference/make"
+        "api-reference/make",
+        "webhook/webhook",
+        "api-auth"
+      ]
+    },
+    {
+      "group": "Agents Management",
+      "pages": [
+        "api-reference/endpoint/agent/create-agent",
+        "api-reference/endpoint/agent/fetch-agents",
+        "api-reference/endpoint/agent/find-agent-by-id",
+        "api-reference/endpoint/agent/update-agent",
+        "api-reference/endpoint/agent/delete-agent"
       ]
     },
     {
@@ -78,19 +90,16 @@
     {
       "group": "Call Management",
       "pages": [
-        "api-reference/endpoint/calls/fetch-calls",
-        "api-reference/endpoint/calls/upload-calls"
+        "api-reference/endpoint/calls/fetch-calls"
       ]
     },
     {
       "group": "Customer Management",
       "pages": [
         "api-reference/endpoint/customers/add-customer-to-list",
-        "api-reference/endpoint/customers/clear-customer-list",
         "api-reference/endpoint/customers/delete-customer",
         "api-reference/endpoint/customers/fetch-customer-list",
-        "api-reference/endpoint/customers/fetch-customer-lists",
-        "api-reference/endpoint/customers/import-customers"
+        "api-reference/endpoint/customers/fetch-customer-lists"
       ]
     },
     {
@@ -99,18 +108,6 @@
         "api-reference/endpoint/update-company",
         "api-reference/endpoint/get-countries",
         "api-reference/endpoint/fetch-languages"
-      ]
-    },
-    {
-      "group": "Webhook",
-      "pages": [
-        "webhook/webhook"
-      ]
-    },
-    {
-      "group": "API Authentication",
-      "pages": [
-        "api-auth"
       ]
     }
   ]

@@ -1093,10 +1093,441 @@
           }
         }
       }
+    },
+    "/agents/create": {
+      "post": {
+        "description": "Creates a new agent with specific call objectives, service description, and voice data.",
+        "requestBody": {
+          "description": "The data required to create an agent including call objectives, service description, voice ID, and sentences.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "Name of the agent"
+                      },
+                      "call_objectives": {
+                        "type": "string",
+                        "description": "Call objectives of the agent"
+                      },
+                      "service_description": {
+                        "type": "string",
+                        "description": "Service description for the agent"
+                      }
+                    }
+                  },
+                  "voice_id": {
+                    "type": "string",
+                    "description": "Voice ID associated with the agent"
+                  },
+                  "sentences": {
+                    "type": "array",
+                    "description": "Array of sentences used to train or describe the agent’s voice",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "string",
+                          "description": "Sentence text"
+                        },
+                        "chunk": {
+                          "type": "string",
+                          "description": "Chunk or portion of the sentence"
+                        },
+                        "file_url": {
+                          "type": "string",
+                          "description": "URL to the sentence audio file"
+                        }
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "data",
+                  "voice_id",
+                  "sentences"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Agent successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Agent created successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/agents": {
+      "get": {
+        "description": "Fetches a list of all agents.",
+        "responses": {
+          "200": {
+            "description": "List of agents",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Agent"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error fetching agents",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/agents/{agent_id}": {
+      "get": {
+        "description": "Finds an agent by their unique ID.",
+        "parameters": [
+          {
+            "name": "agent_id",
+            "in": "path",
+            "description": "ID of the agent to fetch",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Agent details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Agent"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Agent not found or invalid ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/agents/{agent_id}/delete": {
+      "delete": {
+        "description": "Deletes an agent by their unique ID.",
+        "parameters": [
+          {
+            "name": "agent_id",
+            "in": "path",
+            "description": "ID of the agent to delete",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Agent deleted successfully",
+            "content": {}
+          },
+          "400": {
+            "description": "Agent not found or invalid ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/agents/{agent_id}/update": {
+      "post": {
+        "description": "Updates an existing agent by ID.",
+        "parameters": [
+          {
+            "name": "agent_id",
+            "in": "path",
+            "description": "ID of the agent to update",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Updated data for the agent",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "Updated name of the agent"
+                      },
+                      "call_objectives": {
+                        "type": "string",
+                        "description": "Updated call objectives"
+                      },
+                      "service_description": {
+                        "type": "string",
+                        "description": "Updated service description"
+                      }
+                    }
+                  },
+                  "voice_id": {
+                    "type": "string",
+                    "description": "Updated voice ID"
+                  },
+                  "sentences": {
+                    "type": "array",
+                    "description": "Updated array of sentences",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "string",
+                          "description": "Updated sentence text"
+                        },
+                        "chunk": {
+                          "type": "string",
+                          "description": "Updated chunk of the sentence"
+                        },
+                        "file_url": {
+                          "type": "string",
+                          "description": "Updated URL for the sentence file"
+                        }
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "data",
+                  "voice_id",
+                  "sentences"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Agent updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Agent updated successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request data or agent not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "UpdateAgent": {
+        "type": "object",
+        "required": [
+          "name",
+          "call_objectives",
+          "service_description",
+          "voice_id",
+          "sentences"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Updated name of the agent"
+          },
+          "call_objectives": {
+            "type": "string",
+            "description": "Updated call objectives of the agent"
+          },
+          "service_description": {
+            "type": "string",
+            "description": "Updated service description of the agent"
+          },
+          "voice_id": {
+            "type": "string",
+            "description": "Updated voice ID associated with the agent"
+          },
+          "sentences": {
+            "type": "array",
+            "description": "Updated sentences for the agent’s training or voice simulation",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "description": "Updated sentence text"
+                },
+                "chunk": {
+                  "type": "string",
+                  "description": "Updated chunk of the sentence"
+                },
+                "file_url": {
+                  "type": "string",
+                  "description": "Updated URL for the sentence audio file"
+                }
+              }
+            }
+          }
+        }
+      },
+      "AgentList": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Agent"
+        }
+      },
+      "NewAgent": {
+        "type": "object",
+        "required": [
+          "name",
+          "call_objectives",
+          "service_description",
+          "voice_id",
+          "sentences"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the agent"
+          },
+          "call_objectives": {
+            "type": "string",
+            "description": "Call objectives of the agent"
+          },
+          "service_description": {
+            "type": "string",
+            "description": "Service description of the agent"
+          },
+          "voice_id": {
+            "type": "string",
+            "description": "Voice ID associated with the agent"
+          },
+          "sentences": {
+            "type": "array",
+            "description": "Sentences for the agent's training or voice simulation",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "description": "The sentence text"
+                },
+                "chunk": {
+                  "type": "string",
+                  "description": "Chunk or portion of the sentence"
+                },
+                "file_url": {
+                  "type": "string",
+                  "description": "URL for the sentence audio file"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Agent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the agent"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the agent"
+          },
+          "call_objectives": {
+            "type": "string",
+            "description": "Call objectives of the agent"
+          },
+          "service_description": {
+            "type": "string",
+            "description": "Service description for the agent"
+          },
+          "voice_id": {
+            "type": "string",
+            "description": "Voice ID associated with the agent"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the agent was created"
+          }
+        }
+      },
       "Callback": {
         "type": "object",
         "required": [

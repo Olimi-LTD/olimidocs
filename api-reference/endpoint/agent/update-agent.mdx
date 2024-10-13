@@ -1,0 +1,25 @@
+---
+title: 'Update Agent'
+openapi: 'POST /agents/{agent_id}/update'
+---
+
+Updates an existing agent by their unique ID. The agent’s name, objectives, service description, voice ID, and sentences can all be modified.
+
+### Request Example
+
+```json
+{
+  "data": {
+    "name": "Hyacinth Webster",
+    "call_objectives": "Atque illo asperiore",
+    "service_description": "Accusamus cumque exc"
+  },
+  "voice_id": "v8Ajr6DV53YMO3El4obn",
+  "sentences": [
+    {
+      "text": "test",
+      "chunk": "chunk",
+      "file_url": "url"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+---
+title: 'Create Agent'
+openapi: 'POST /agents/create'
+---
+
+Creates a new agent with specified data including name, call objectives, service description, voice ID, and sentences. This allows defining the agent's behavior and attributes for customer interactions.
+
+### Request Example
+
+```json
+{
+  "data": {
+    "name": "Hyacinth Webster",
+    "call_objectives": "Atque illo asperiore",
+    "service_description": "Accusamus cumque exc"
+  },
+  "voice_id": "v8Ajr6DV53YMO3El4obn",
+  "sentences": [
+    {
+      "text": "test",
+      "chunk": "chunk",
+      "file_url": "https://www.google.com/"
+    }
+  ]
+}
