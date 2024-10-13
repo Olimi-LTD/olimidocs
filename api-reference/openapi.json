@@ -99,47 +99,14 @@
         }
       }
     },
-    "/contacts/{contactUUID}": {
+    "/contacts/{contact_id}": {
       "delete": {
-        "description": "Deletes a contact based on the UUID supplied",
+        "description": "Deletes a contact by its unique ID.",
         "parameters": [
           {
-            "name": "contactUUID",
+            "name": "contact_id",
             "in": "path",
-            "description": "UUID of the contact to delete",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Contact deleted successfully",
-            "content": {}
-          },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/contacts/{contactListUUID}/clear": {
-      "delete": {
-        "description": "Clears all contacts in the specified roster (contact list).",
-        "parameters": [
-          {
-            "name": "contactListUUID",
-            "in": "path",
-            "description": "ID of the contact list (roster) to clear.",
+            "description": "Unique ID of the contact to be deleted.",
             "required": true,
             "schema": {
               "type": "string"
@@ -148,11 +115,11 @@
         ],
         "responses": {
           "204": {
-            "description": "All contacts in the contact list were cleared successfully.",
+            "description": "Contact deleted successfully.",
             "content": {}
           },
           "400": {
-            "description": "Unexpected error occurred during the clear operation.",
+            "description": "Invalid contact ID or contact not found.",
             "content": {
               "application/json": {
                 "schema": {
@@ -164,14 +131,14 @@
         }
       }
     },
-    "/contacts/{contactListUUID}": {
+    "/contacts/{roster_id}": {
       "get": {
-        "description": "Retrieves all contacts in the specified contact list (roster).",
+        "description": "Fetches all contacts in the specified roster.",
         "parameters": [
           {
-            "name": "contactListUUID",
+            "name": "roster_id",
             "in": "path",
-            "description": "ID of the contact list (roster) to fetch the contacts from.",
+            "description": "ID of the roster (contact list).",
             "required": true,
             "schema": {
               "type": "string"
@@ -180,7 +147,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A list of contacts in the specified contact list.",
+            "description": "List of contacts in the specified roster.",
             "content": {
               "application/json": {
                 "schema": {
@@ -193,7 +160,7 @@
             }
           },
           "400": {
-            "description": "Unexpected error occurred while fetching contacts.",
+            "description": "Invalid roster ID or error occurred.",
             "content": {
               "application/json": {
                 "schema": {
@@ -207,7 +174,7 @@
     },
     "/contacts/import": {
       "post": {
-        "description": "Imports contacts in bulk using a file (CSV).",
+        "description": "Imports contacts in bulk using a CSV file.",
         "requestBody": {
           "description": "CSV file containing contacts to be imported.",
           "content": {
@@ -218,13 +185,17 @@
                   "file": {
                     "type": "string",
                     "format": "binary",
-                    "description": "CSV file containing the contacts."
+                    "description": "CSV file with contact data."
                   },
-                  "contactListUUID": {
+                  "roster_id": {
                     "type": "string",
-                    "description": "ID of the contact list (roster) to import the contacts into."
+                    "description": "Roster ID to which contacts are being imported."
                   }
-                }
+                },
+                "required": [
+                  "file",
+                  "roster_id"
+                ]
               }
             }
           },
@@ -240,7 +211,7 @@
                   "properties": {
                     "imported_count": {
                       "type": "integer",
-                      "description": "Number of contacts imported."
+                      "description": "Number of contacts successfully imported."
                     }
                   }
                 }
@@ -248,7 +219,209 @@
             }
           },
           "400": {
-            "description": "Unexpected error occurred during the import operation.",
+            "description": "Error occurred during the import process.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contacts/{contact_id}/show": {
+      "get": {
+        "description": "Shows the details of a contact by its ID.",
+        "parameters": [
+          {
+            "name": "contact_id",
+            "in": "path",
+            "description": "ID of the contact.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details of the specified contact.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Contact"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid contact ID or contact not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contacts/{contact_id}/update": {
+      "post": {
+        "description": "Updates the details of a contact.",
+        "parameters": [
+          {
+            "name": "contact_id",
+            "in": "path",
+            "description": "Unique ID of the contact to be updated.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Updated contact information.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first_name": {
+                    "type": "string",
+                    "description": "Updated first name of the contact."
+                  },
+                  "last_name": {
+                    "type": "string",
+                    "description": "Updated last name of the contact."
+                  },
+                  "phone_number": {
+                    "type": "string",
+                    "description": "Updated phone number of the contact."
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "Updated email address of the contact."
+                  },
+                  "gender": {
+                    "type": "string",
+                    "description": "Updated gender of the contact."
+                  }
+                },
+                "required": [
+                  "first_name",
+                  "last_name",
+                  "phone_number",
+                  "email",
+                  "gender"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Contact updated successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Contact updated successfully."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data or contact not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contacts/create": {
+      "post": {
+        "description": "Creates a new contact in the specified roster.",
+        "requestBody": {
+          "description": "The contact details, including name, phone number, email, and gender.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "roster_id": {
+                    "type": "string",
+                    "description": "Roster ID where the contact is being added."
+                  },
+                  "first_name": {
+                    "type": "string",
+                    "description": "First name of the contact."
+                  },
+                  "last_name": {
+                    "type": "string",
+                    "description": "Last name of the contact."
+                  },
+                  "phone_number": {
+                    "type": "string",
+                    "description": "Phone number of the contact."
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "Email address of the contact."
+                  },
+                  "gender": {
+                    "type": "string",
+                    "description": "Gender of the contact."
+                  }
+                },
+                "required": [
+                  "roster_id",
+                  "first_name",
+                  "last_name",
+                  "phone_number",
+                  "email",
+                  "gender"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Contact created successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Contact created successfully."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request data.",
             "content": {
               "application/json": {
                 "schema": {
@@ -841,38 +1014,6 @@
         }
       }
     },
-    "/customers/{customerListUUID}/clear": {
-      "delete": {
-        "description": "Clears all customers in the specified list.",
-        "parameters": [
-          {
-            "name": "customerListUUID",
-            "in": "path",
-            "description": "ID of the customer list to clear.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "All customers in the customer list were cleared successfully.",
-            "content": {}
-          },
-          "400": {
-            "description": "Unexpected error occurred during the clear operation.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/customers/{customerListUUID}": {
       "get": {
         "description": "Retrieves all customers in the specified customer list.",
@@ -903,61 +1044,6 @@
           },
           "400": {
             "description": "Unexpected error occurred while fetching customers.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/customers/import": {
-      "post": {
-        "description": "Imports customers in bulk using a file (CSV).",
-        "requestBody": {
-          "description": "CSV file containing customers to be imported.",
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "file": {
-                    "type": "string",
-                    "format": "binary",
-                    "description": "CSV file containing the customers."
-                  },
-                  "customerListUUID": {
-                    "type": "string",
-                    "description": "ID of the customer list to import the customers into."
-                  }
-                }
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Customers imported successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "imported_count": {
-                      "type": "integer",
-                      "description": "Number of customers imported."
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Unexpected error occurred during the import operation.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1017,72 +1103,6 @@
           },
           "400": {
             "description": "Invalid query parameters",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/calls/{sid}/upload-attachment": {
-      "post": {
-        "description": "Uploads an attachment for a call identified by its SID.",
-        "parameters": [
-          {
-            "name": "sid",
-            "in": "path",
-            "description": "Unique identifier (SID) of the call",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "The file to be uploaded along with the duration of the call",
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "file": {
-                    "type": "string",
-                    "format": "binary",
-                    "description": "The file to be uploaded"
-                  },
-                  "duration_in_sec": {
-                    "type": "integer",
-                    "description": "Duration of the call in seconds"
-                  }
-                }
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "File uploaded successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "File uploaded successfully"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Failed to upload the file or invalid request parameters",
             "content": {
               "application/json": {
                 "schema": {

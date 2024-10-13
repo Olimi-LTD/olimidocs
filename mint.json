@@ -75,7 +75,10 @@
         "api-reference/endpoint/contacts/get-contacts-lists",
         "api-reference/endpoint/contacts/create-contact",
         "api-reference/endpoint/contacts/get-contacts-list",
-        "api-reference/endpoint/contacts/import-contacts-list"
+        "api-reference/endpoint/contacts/import-contacts-list",
+        "api-reference/endpoint/contacts/delete-contact",
+        "api-reference/endpoint/contacts/update-contact",
+        "api-reference/endpoint/contacts/show-contact"
       ]
     },
     {

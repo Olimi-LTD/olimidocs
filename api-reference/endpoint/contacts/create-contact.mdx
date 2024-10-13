@@ -1,4 +1,17 @@
 ---
 title: 'Create Contact'
-openapi: 'POST /contact-lists/{contactListUUID}/contacts'
+openapi: 'POST /contacts/create'
 ---
+
+Creates a new contact in the specified roster by providing necessary details such as name, phone number, email, and gender.
+
+### Request Example
+
+```json
+{
+  "roster_id": "string",
+  "last_name": "string",
+  "phone_number": "string",
+  "email": "string",
+  "gender": "string"
+}

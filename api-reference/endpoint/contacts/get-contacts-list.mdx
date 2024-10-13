@@ -1,4 +1,28 @@
 ---
-title: 'Fetch Contacts List'
-openapi: 'Get /contacts/{contactListUUID}'
+title: 'Fetch Contacts by Roster'
+openapi: 'GET /contacts/{roster_id}'
 ---
+
+Fetches all contacts from the specified roster by using the `roster_id`.
+
+### Request Parameters
+
+- `roster_id` (required): ID of the roster to fetch the contacts from.
+
+### Response Example
+
+#### Success (200 OK)
+
+```json
+[
+  {
+    "id": "abc123",
+    "first_name": "string",
+    "last_name": "string",
+    "phone_number": "string",
+    "email": "string",
+    "gender": "string",
+    "created_at": "2024-10-10T12:26:21.000000Z",
+    "updated_at": "2024-10-10T12:26:21.000000Z"
+  }
+]
