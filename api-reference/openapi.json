@@ -131,14 +131,14 @@
         }
       }
     },
-    "/contacts/{roster_id}": {
+    "/contacts/{customer_list_id}": {
       "get": {
-        "description": "Fetches all contacts in the specified roster.",
+        "description": "Fetches all contacts in the specified customer list.",
         "parameters": [
           {
-            "name": "roster_id",
+            "name": "customer_list_id",
             "in": "path",
-            "description": "ID of the roster (contact list).",
+            "description": "ID of the customer list (contact list).",
             "required": true,
             "schema": {
               "type": "string"
@@ -147,7 +147,7 @@
         ],
         "responses": {
           "200": {
-            "description": "List of contacts in the specified roster.",
+            "description": "List of contacts in the specified customer list.",
             "content": {
               "application/json": {
                 "schema": {
@@ -160,7 +160,7 @@
             }
           },
           "400": {
-            "description": "Invalid roster ID or error occurred.",
+            "description": "Invalid customer list ID or error occurred.",
             "content": {
               "application/json": {
                 "schema": {
@@ -187,14 +187,14 @@
                     "format": "binary",
                     "description": "CSV file with contact data."
                   },
-                  "roster_id": {
+                  "customer_list_id": {
                     "type": "string",
-                    "description": "Roster ID to which contacts are being imported."
+                    "description": "CustomerList ID to which contacts are being imported."
                   }
                 },
                 "required": [
                   "file",
-                  "roster_id"
+                  "customer_list_id"
                 ]
               }
             }
@@ -356,7 +356,7 @@
     },
     "/contacts/create": {
       "post": {
-        "description": "Creates a new contact in the specified roster.",
+        "description": "Creates a new contact in the specified customer list.",
         "requestBody": {
           "description": "The contact details, including name, phone number, email, and gender.",
           "content": {
@@ -364,9 +364,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "roster_id": {
+                  "customer_list_id": {
                     "type": "string",
-                    "description": "Roster ID where the contact is being added."
+                    "description": "CustomerList ID where the contact is being added."
                   },
                   "first_name": {
                     "type": "string",
@@ -391,7 +391,7 @@
                   }
                 },
                 "required": [
-                  "roster_id",
+                  "customer_list_id",
                   "first_name",
                   "last_name",
                   "phone_number",
@@ -478,10 +478,10 @@
                     "type": "string",
                     "description": "Name of the campaign"
                   },
-                  "roster_id": {
+                  "customer_list_id": {
                     "type": "string",
                     "format": "uuid",
-                    "description": "UUID of the roster associated with the campaign"
+                    "description": "UUID of the customer list associated with the campaign"
                   },
                   "agent_id": {
                     "type": "string",
@@ -522,7 +522,7 @@
                 },
                 "required": [
                   "name",
-                  "roster_id",
+                  "customer_list_id",
                   "agent_id",
                   "working_day_id",
                   "max_daily_minutes",
@@ -901,12 +901,80 @@
         }
       }
     },
-    "/customer-lists": {
+    "/customer-list/{customer_list_id}/confirm": {
       "get": {
-        "description": "Retrieves all customer lists with their UUIDs",
+        "description": "Confirms the contacts in the specified customer list.",
+        "parameters": [
+          {
+            "name": "customer_list_id",
+            "in": "path",
+            "description": "ID of the customer list to confirm the contacts.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
-            "description": "A list of customer lists",
+            "description": "Contacts confirmed successfully.",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Unexpected error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customer-list/{customer_list_id}": {
+      "delete": {
+        "description": "Deletes the specified customer list.",
+        "parameters": [
+          {
+            "name": "customer_list_id",
+            "in": "path",
+            "description": "ID of the customer list to delete.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "CustomerList deleted successfully.",
+            "content": {}
+          },
+          "400": {
+            "description": "Unexpected error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/frontend/customer-list": {
+      "get": {
+        "description": "Fetches all customer-list.",
+        "responses": {
+          "200": {
+            "description": "List of customer-list.",
             "content": {
               "application/json": {
                 "schema": {
@@ -919,7 +987,7 @@
             }
           },
           "400": {
-            "description": "Unexpected error",
+            "description": "Unexpected error occurred while fetching customer-list.",
             "content": {
               "application/json": {
                 "schema": {
@@ -929,29 +997,15 @@
             }
           }
         }
-      }
-    },
-    "/customer-lists/{customerListUUID}/customers": {
+      },
       "post": {
-        "description": "Adds a new customer to the specified customer list",
-        "parameters": [
-          {
-            "name": "customerListUUID",
-            "in": "path",
-            "description": "UUID of the customer list to add the customer to",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
+        "description": "Creates a new customer list.",
         "requestBody": {
-          "description": "The customer to be added",
+          "description": "The customer list to be created.",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewCustomer"
+                "$ref": "#/components/schemas/NewCustomerList"
               }
             }
           },
@@ -959,17 +1013,17 @@
         },
         "responses": {
           "200": {
-            "description": "Customer successfully added",
+            "description": "CustomerList created successfully.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Customer"
+                  "$ref": "#/components/schemas/CustomerList"
                 }
               }
             }
           },
           "400": {
-            "description": "Unexpected error",
+            "description": "Unexpected error.",
             "content": {
               "application/json": {
                 "schema": {
@@ -981,47 +1035,14 @@
         }
       }
     },
-    "/customers/{customerUUID}": {
-      "delete": {
-        "description": "Deletes a customer based on the UUID supplied",
-        "parameters": [
-          {
-            "name": "customerUUID",
-            "in": "path",
-            "description": "UUID of the customer to delete",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Customer deleted successfully",
-            "content": {}
-          },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/customers/{customerListUUID}": {
+    "/customer-list/{customer_list_id}/check-import": {
       "get": {
-        "description": "Retrieves all customers in the specified customer list.",
+        "description": "Checks if the import of the customer list is completed.",
         "parameters": [
           {
-            "name": "customerListUUID",
+            "name": "customer_list_id",
             "in": "path",
-            "description": "ID of the customer list to fetch the customers from.",
+            "description": "ID of the customer list to check the import status.",
             "required": true,
             "schema": {
               "type": "string"
@@ -1030,20 +1051,89 @@
         ],
         "responses": {
           "200": {
-            "description": "A list of customers in the specified customer list.",
+            "description": "Import check successful.",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Unexpected error.",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Customer"
-                  }
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customer-list/{customer_list_id}/update": {
+      "post": {
+        "description": "Updates the details of the specified customer list.",
+        "parameters": [
+          {
+            "name": "customer_list_id",
+            "in": "path",
+            "description": "ID of the customer list to update.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The updated customer list details.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCustomerList"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "CustomerList updated successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerList"
                 }
               }
             }
           },
           "400": {
-            "description": "Unexpected error occurred while fetching customers.",
+            "description": "Unexpected error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customer-list/template/download": {
+      "get": {
+        "description": "Downloads a customer list template.",
+        "responses": {
+          "200": {
+            "description": "Template downloaded successfully.",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Unexpected error occurred while downloading template.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1414,6 +1504,78 @@
   },
   "components": {
     "schemas": {
+      "NewCustomerList": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the new customer list"
+          },
+          "description": {
+            "type": "string",
+            "description": "Optional description of the customer list"
+          }
+        }
+      },
+      "CustomerList": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "created_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the customer list"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the customer list"
+          },
+          "description": {
+            "type": "string",
+            "description": "Optional description of the customer list"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the customer list was created"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the customer list was last updated"
+          },
+          "contacts": {
+            "type": "array",
+            "description": "Array of contacts in the customer list",
+            "items": {
+              "$ref": "#/components/schemas/Contact"
+            }
+          }
+        }
+      },
+      "UpdateCustomerList": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Updated name of the customer list"
+          },
+          "description": {
+            "type": "string",
+            "description": "Updated description of the customer list"
+          }
+        }
+      },
       "UpdateAgent": {
         "type": "object",
         "required": [
@@ -1716,46 +1878,6 @@
           }
         }
       },
-      "CustomerList": {
-        "type": "object",
-        "required": [
-          "uuid",
-          "name",
-          "createdAt"
-        ],
-        "properties": {
-          "uuid": {
-            "type": "string",
-            "format": "uuid",
-            "description": "UUID of the customer list"
-          },
-          "name": {
-            "type": "string",
-            "description": "Name of the customer list"
-          },
-          "description": {
-            "type": "string",
-            "description": "Optional description of the customer list"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Date and time when the customer list was created"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Date and time when the customer list was last updated"
-          },
-          "customers": {
-            "type": "array",
-            "description": "Array of customers in the list",
-            "items": {
-              "$ref": "#/components/schemas/Customer"
-            }
-          }
-        }
-      },
       "Language": {
         "type": "array",
         "items": {
@@ -1926,7 +2048,7 @@
         "type": "object",
         "required": [
           "name",
-          "roster_id",
+          "customer_list_id",
           "agent_id",
           "working_day_id",
           "max_daily_minutes",
@@ -1941,10 +2063,10 @@
             "type": "string",
             "description": "Name of the campaign"
           },
-          "roster_id": {
+          "customer_list_id": {
             "type": "string",
             "format": "uuid",
-            "description": "UUID of the roster associated with the campaign"
+            "description": "UUID of the customer list associated with the campaign"
           },
           "agent_id": {
             "type": "string",

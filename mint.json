@@ -97,12 +97,15 @@
       ]
     },
     {
-      "group": "Customer Management",
+      "group": "Customer list Management",
       "pages": [
-        "api-reference/endpoint/customers/add-customer-to-list",
-        "api-reference/endpoint/customers/delete-customer",
-        "api-reference/endpoint/customers/fetch-customer-list",
-        "api-reference/endpoint/customers/fetch-customer-lists"
+        "api-reference/endpoint/customer-list/check-import-completion",
+        "api-reference/endpoint/customer-list/create-customer-list",
+        "api-reference/endpoint/customer-list/download-customer-list-templates",
+        "api-reference/endpoint/customer-list/update-customer-list",
+        "api-reference/endpoint/customer-list/confirm-contacts",
+        "api-reference/endpoint/customer-list/delete-customer-list",
+        "api-reference/endpoint/customer-list/fetch-customer-list"
       ]
     },
     {
