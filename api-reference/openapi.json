@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Contact Management API",
-    "description": "API for managing contact lists and contacts within those lists",
+    "title": "Customer Management API",
+    "description": "API for managing customer lists and customers within those lists",
     "license": {
       "name": "MIT"
     },
@@ -19,12 +19,12 @@
     }
   ],
   "paths": {
-    "/contact-lists": {
+    "/customer-lists": {
       "get": {
-        "description": "Retrieves all contact lists with their UUIDs",
+        "description": "Retrieves all customer lists with their UUIDs",
         "responses": {
           "200": {
-            "description": "A list of contact lists",
+            "description": "A list of customer lists",
             "content": {
               "application/json": {
                 "schema": {
@@ -49,14 +49,14 @@
         }
       }
     },
-    "/contact-lists/{contactListUUID}/contacts": {
+    "/customer-lists/{contactListUUID}/customers": {
       "post": {
-        "description": "Adds a new contact to the specified contact list",
+        "description": "Adds a new customer to the specified customer list",
         "parameters": [
           {
             "name": "contactListUUID",
             "in": "path",
-            "description": "UUID of the contact list to add the contact to",
+            "description": "UUID of the customer list to add the customer to",
             "required": true,
             "schema": {
               "type": "string",
@@ -65,7 +65,7 @@
           }
         ],
         "requestBody": {
-          "description": "The contact to be added",
+          "description": "The customer to be added",
           "content": {
             "application/json": {
               "schema": {
@@ -77,11 +77,11 @@
         },
         "responses": {
           "200": {
-            "description": "Contact successfully added",
+            "description": "Customer successfully added",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Contact"
+                  "$ref": "#/components/schemas/Customer"
                 }
               }
             }
@@ -99,14 +99,14 @@
         }
       }
     },
-    "/contacts/{contact_id}": {
+    "/customers/{customer_id}": {
       "delete": {
-        "description": "Deletes a contact by its unique ID.",
+        "description": "Deletes a customer by its unique ID.",
         "parameters": [
           {
-            "name": "contact_id",
+            "name": "customer_id",
             "in": "path",
-            "description": "Unique ID of the contact to be deleted.",
+            "description": "Unique ID of the customer to be deleted.",
             "required": true,
             "schema": {
               "type": "string"
@@ -115,11 +115,11 @@
         ],
         "responses": {
           "204": {
-            "description": "Contact deleted successfully.",
+            "description": "Customer deleted successfully.",
             "content": {}
           },
           "400": {
-            "description": "Invalid contact ID or contact not found.",
+            "description": "Invalid customer ID or customer not found.",
             "content": {
               "application/json": {
                 "schema": {
@@ -131,14 +131,14 @@
         }
       }
     },
-    "/contacts/{customer_list_id}": {
+    "/customers/{customer_list_id}": {
       "get": {
-        "description": "Fetches all contacts in the specified customer list.",
+        "description": "Fetches all customers in the specified customer list.",
         "parameters": [
           {
             "name": "customer_list_id",
             "in": "path",
-            "description": "ID of the customer list (contact list).",
+            "description": "ID of the customer list (customer list).",
             "required": true,
             "schema": {
               "type": "string"
@@ -147,13 +147,13 @@
         ],
         "responses": {
           "200": {
-            "description": "List of contacts in the specified customer list.",
+            "description": "List of customers in the specified customer list.",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Contact"
+                    "$ref": "#/components/schemas/Customer"
                   }
                 }
               }
@@ -172,11 +172,11 @@
         }
       }
     },
-    "/contacts/import": {
+    "/customers/import": {
       "post": {
-        "description": "Imports contacts in bulk using a CSV file.",
+        "description": "Imports customers in bulk using a CSV file.",
         "requestBody": {
-          "description": "CSV file containing contacts to be imported.",
+          "description": "CSV file containing customers to be imported.",
           "content": {
             "multipart/form-data": {
               "schema": {
@@ -185,11 +185,11 @@
                   "file": {
                     "type": "string",
                     "format": "binary",
-                    "description": "CSV file with contact data."
+                    "description": "CSV file with customer data."
                   },
                   "customer_list_id": {
                     "type": "string",
-                    "description": "CustomerList ID to which contacts are being imported."
+                    "description": "CustomerList ID to which customers are being imported."
                   }
                 },
                 "required": [
@@ -203,7 +203,7 @@
         },
         "responses": {
           "200": {
-            "description": "Contacts imported successfully.",
+            "description": "Customers imported successfully.",
             "content": {
               "application/json": {
                 "schema": {
@@ -211,7 +211,7 @@
                   "properties": {
                     "imported_count": {
                       "type": "integer",
-                      "description": "Number of contacts successfully imported."
+                      "description": "Number of customers successfully imported."
                     }
                   }
                 }
@@ -231,14 +231,14 @@
         }
       }
     },
-    "/contacts/{contact_id}/show": {
+    "/customers/{customer_id}/show": {
       "get": {
-        "description": "Shows the details of a contact by its ID.",
+        "description": "Shows the details of a customer by its ID.",
         "parameters": [
           {
-            "name": "contact_id",
+            "name": "customer_id",
             "in": "path",
-            "description": "ID of the contact.",
+            "description": "ID of the customer.",
             "required": true,
             "schema": {
               "type": "string"
@@ -247,17 +247,17 @@
         ],
         "responses": {
           "200": {
-            "description": "Details of the specified contact.",
+            "description": "Details of the specified customer.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Contact"
+                  "$ref": "#/components/schemas/Customer"
                 }
               }
             }
           },
           "400": {
-            "description": "Invalid contact ID or contact not found.",
+            "description": "Invalid customer ID or customer not found.",
             "content": {
               "application/json": {
                 "schema": {
@@ -269,14 +269,14 @@
         }
       }
     },
-    "/contacts/{contact_id}/update": {
+    "/customers/{customer_id}/update": {
       "post": {
-        "description": "Updates the details of a contact.",
+        "description": "Updates the details of a customer.",
         "parameters": [
           {
-            "name": "contact_id",
+            "name": "customer_id",
             "in": "path",
-            "description": "Unique ID of the contact to be updated.",
+            "description": "Unique ID of the customer to be updated.",
             "required": true,
             "schema": {
               "type": "string"
@@ -284,7 +284,7 @@
           }
         ],
         "requestBody": {
-          "description": "Updated contact information.",
+          "description": "Updated customer information.",
           "content": {
             "application/json": {
               "schema": {
@@ -292,24 +292,24 @@
                 "properties": {
                   "first_name": {
                     "type": "string",
-                    "description": "Updated first name of the contact."
+                    "description": "Updated first name of the customer."
                   },
                   "last_name": {
                     "type": "string",
-                    "description": "Updated last name of the contact."
+                    "description": "Updated last name of the customer."
                   },
                   "phone_number": {
                     "type": "string",
-                    "description": "Updated phone number of the contact."
+                    "description": "Updated phone number of the customer."
                   },
                   "email": {
                     "type": "string",
                     "format": "email",
-                    "description": "Updated email address of the contact."
+                    "description": "Updated email address of the customer."
                   },
                   "gender": {
                     "type": "string",
-                    "description": "Updated gender of the contact."
+                    "description": "Updated gender of the customer."
                   }
                 },
                 "required": [
@@ -326,7 +326,7 @@
         },
         "responses": {
           "200": {
-            "description": "Contact updated successfully.",
+            "description": "Customer updated successfully.",
             "content": {
               "application/json": {
                 "schema": {
@@ -334,7 +334,7 @@
                   "properties": {
                     "message": {
                       "type": "string",
-                      "example": "Contact updated successfully."
+                      "example": "Customer updated successfully."
                     }
                   }
                 }
@@ -342,7 +342,7 @@
             }
           },
           "400": {
-            "description": "Invalid data or contact not found.",
+            "description": "Invalid data or customer not found.",
             "content": {
               "application/json": {
                 "schema": {
@@ -354,11 +354,11 @@
         }
       }
     },
-    "/contacts/create": {
+    "/customers/create": {
       "post": {
-        "description": "Creates a new contact in the specified customer list.",
+        "description": "Creates a new customer in the specified customer list.",
         "requestBody": {
-          "description": "The contact details, including name, phone number, email, and gender.",
+          "description": "The customer details, including name, phone number, email, and gender.",
           "content": {
             "application/json": {
               "schema": {
@@ -366,28 +366,28 @@
                 "properties": {
                   "customer_list_id": {
                     "type": "string",
-                    "description": "CustomerList ID where the contact is being added."
+                    "description": "CustomerList ID where the customer is being added."
                   },
                   "first_name": {
                     "type": "string",
-                    "description": "First name of the contact."
+                    "description": "First name of the customer."
                   },
                   "last_name": {
                     "type": "string",
-                    "description": "Last name of the contact."
+                    "description": "Last name of the customer."
                   },
                   "phone_number": {
                     "type": "string",
-                    "description": "Phone number of the contact."
+                    "description": "Phone number of the customer."
                   },
                   "email": {
                     "type": "string",
                     "format": "email",
-                    "description": "Email address of the contact."
+                    "description": "Email address of the customer."
                   },
                   "gender": {
                     "type": "string",
-                    "description": "Gender of the contact."
+                    "description": "Gender of the customer."
                   }
                 },
                 "required": [
@@ -405,7 +405,7 @@
         },
         "responses": {
           "201": {
-            "description": "Contact created successfully.",
+            "description": "Customer created successfully.",
             "content": {
               "application/json": {
                 "schema": {
@@ -413,7 +413,7 @@
                   "properties": {
                     "message": {
                       "type": "string",
-                      "example": "Contact created successfully."
+                      "example": "Customer created successfully."
                     }
                   }
                 }
@@ -664,7 +664,7 @@
                   },
                   "max_retries": {
                     "type": "integer",
-                    "description": "Maximum retries allowed per contact."
+                    "description": "Maximum retries allowed per customer."
                   },
                   "description": {
                     "type": "string",
@@ -903,12 +903,12 @@
     },
     "/customer-list/{customer_list_id}/confirm": {
       "get": {
-        "description": "Confirms the contacts in the specified customer list.",
+        "description": "Confirms the customers in the specified customer list.",
         "parameters": [
           {
             "name": "customer_list_id",
             "in": "path",
-            "description": "ID of the customer list to confirm the contacts.",
+            "description": "ID of the customer list to confirm the customers.",
             "required": true,
             "schema": {
               "type": "string"
@@ -917,7 +917,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Contacts confirmed successfully.",
+            "description": "Customers confirmed successfully.",
             "content": {
               "application/json": {
                 "schema": {}
@@ -1551,11 +1551,11 @@
             "format": "date-time",
             "description": "Timestamp when the customer list was last updated"
           },
-          "contacts": {
+          "customers": {
             "type": "array",
-            "description": "Array of contacts in the customer list",
+            "description": "Array of customers in the customer list",
             "items": {
-              "$ref": "#/components/schemas/Contact"
+              "$ref": "#/components/schemas/Customer"
             }
           }
         }
@@ -1957,11 +1957,11 @@
           "uuid": {
             "type": "string",
             "format": "uuid",
-            "description": "UUID of the contact list"
+            "description": "UUID of the customer list"
           },
           "name": {
             "type": "string",
-            "description": "Name of the contact list"
+            "description": "Name of the customer list"
           }
         }
       },
@@ -2031,16 +2031,16 @@
         "properties": {
           "firstName": {
             "type": "string",
-            "description": "First name of the contact"
+            "description": "First name of the customer"
           },
           "lastName": {
             "type": "string",
-            "description": "Last name of the contact"
+            "description": "Last name of the customer"
           },
           "email": {
             "type": "string",
             "format": "email",
-            "description": "Email address of the contact"
+            "description": "Email address of the customer"
           }
         }
       },
@@ -2192,7 +2192,7 @@
           "server_id"
         ]
       },
-      "Contact": {
+      "Customer": {
         "type": "object",
         "required": [
           "uuid",
@@ -2204,20 +2204,20 @@
           "uuid": {
             "type": "string",
             "format": "uuid",
-            "description": "UUID of the contact"
+            "description": "UUID of the customer"
           },
           "firstName": {
             "type": "string",
-            "description": "First name of the contact"
+            "description": "First name of the customer"
           },
           "lastName": {
             "type": "string",
-            "description": "Last name of the contact"
+            "description": "Last name of the customer"
           },
           "email": {
             "type": "string",
             "format": "email",
-            "description": "Email address of the contact"
+            "description": "Email address of the customer"
           }
         }
       },

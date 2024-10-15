@@ -1,0 +1,20 @@
+---
+title: 'Import Customers'
+openapi: 'POST /customers/import'
+---
+
+Imports customers in bulk using a CSV file and assigns them to the specified customer list.
+
+### Request Example
+
+- **file**: The CSV file containing the customer information.
+- **customer_list_id**: The ID of the customer list to import the customers into.
+
+### Response Example
+
+#### Success (200 OK)
+
+```json
+{
+  "imported_count": 100
+}

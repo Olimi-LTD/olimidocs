@@ -50,17 +50,17 @@ Create your first agent to select how you want your agent to answer your custome
   </Accordion>
 </AccordionGroup>
 
-## Create Contacts
+## Create Customers
 
-To start adding contacts to call you first need to create a contact list, then add contacts to this list.
+To start adding customers to call you first need to create a customer list, then add customers to this list.
 <Tip>
-You can use the API to add contacts to a contact list that is connected to an active campaign to make calls dynamically.
+You can use the API to add customers to a customer list that is connected to an active campaign to make calls dynamically.
 </Tip>
 
-### Add Contact Individually
-After you've created your list you can then start adding your contacts one by one. The only required filed is the phone number, however adding more fields to your contact can help the AI during a call. Especially the gender if the AI is talking in a gender specific language.
-### Upload Contacts
-To add multiple contacts all at once, first you need to download the template and update all your contact information to that list. Then you will need to upload your sheet to be added to your contact list.
+### Add Customer Individually
+After you've created your list you can then start adding your customers one by one. The only required filed is the phone number, however adding more fields to your customer can help the AI during a call. Especially the gender if the AI is talking in a gender specific language.
+### Upload Customers
+To add multiple customers all at once, first you need to download the template and update all your customer information to that list. Then you will need to upload your sheet to be added to your customer list.
 ## Connect your PBX
 To connect your PBX make sure you follow these [instructions](installation) to install and run the script on the same machine as you Asterisks. If you need further assistant you can book a [free introductory call](https://calendar.app.google/aWmgaGtPSh4Q8PF98) with our technical team.
 ## Create Extensions
@@ -76,14 +76,14 @@ You are then finally ready to make a campaign, To add a campaign you need to nee
   <Step title="Campaign Name">
     Add a friendly name to your campaign.
   </Step>
-  <Step title="Select Contact List">
-    Select your contact list.
+  <Step title="Select Customer List">
+    Select your customer list.
   </Step>
   <Step title="Select Agent">
    Select your agent
   </Step>
   <Step title="Daily Limit">
-    Set the maximum minutes that will be consumed each day from this campaign. Setting this to 0 will cause it to be unlimited, ,meaning it will only stop until all contacts have been completed.
+    Set the maximum minutes that will be consumed each day from this campaign. Setting this to 0 will cause it to be unlimited, ,meaning it will only stop until all customers have been completed.
   </Step>
   </Steps>
   </Accordion>
@@ -91,6 +91,6 @@ You are then finally ready to make a campaign, To add a campaign you need to nee
     These are the working hours and days that the AI will work from and to. You can select "Sunday-Saturday" to have it work 7 days a week and select 00:00 to 24:00 to have it work 24/7.
   </Accordion>
   <Accordion title="Retries" icon="phone">
-   Finally select how many times the AI should retry calling a contact if their number is busy or unanswered. Setting this Option to 0 will cause it only to call a contact once, and not be called again regardless of the attempted outcome status of the call (answered, busy etc.)
+   Finally select how many times the AI should retry calling a customer if their number is busy or unanswered. Setting this Option to 0 will cause it only to call a customer once, and not be called again regardless of the attempted outcome status of the call (answered, busy etc.)
   </Accordion>
 </AccordionGroup>

@@ -1,0 +1,17 @@
+---
+title: 'Create Customer'
+openapi: 'POST /customers/create'
+---
+
+Creates a new customer in the specified customer list by providing necessary details such as name, phone number, email, and gender.
+
+### Request Example
+
+```json
+{
+  "customer_list_id": "string",
+  "last_name": "string",
+  "phone_number": "string",
+  "email": "string",
+  "gender": "string"
+}

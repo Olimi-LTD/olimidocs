@@ -72,12 +72,12 @@
     {
       "group": "Customer Management",
       "pages": [
-        "api-reference/endpoint/contacts/get-contacts-lists",
-        "api-reference/endpoint/contacts/get-contacts-list",
-        "api-reference/endpoint/contacts/create-contact",
-        "api-reference/endpoint/contacts/delete-contact",
-        "api-reference/endpoint/contacts/update-contact",
-        "api-reference/endpoint/contacts/show-contact"
+        "api-reference/endpoint/customers/get-customers-lists",
+        "api-reference/endpoint/customers/get-customers-list",
+        "api-reference/endpoint/customers/create-customer",
+        "api-reference/endpoint/customers/delete-customer",
+        "api-reference/endpoint/customers/update-customer",
+        "api-reference/endpoint/customers/show-customer"
       ]
     },
     {
@@ -87,6 +87,18 @@
         "api-reference/endpoint/campaigns/create-campaign",
         "api-reference/endpoint/campaigns/delete-campaign",
         "api-reference/endpoint/campaigns/update-campaign"
+      ]
+    },
+    {
+      "group": "Customer list Management",
+      "pages": [
+        "api-reference/endpoint/customer-list/check-import-completion",
+        "api-reference/endpoint/customer-list/create-customer-list",
+        "api-reference/endpoint/customer-list/download-customer-list-templates",
+        "api-reference/endpoint/customer-list/update-customer-list",
+        "api-reference/endpoint/customer-list/confirm-contacts",
+        "api-reference/endpoint/customer-list/delete-customer-list",
+        "api-reference/endpoint/customer-list/fetch-customer-list"
       ]
     },
     {

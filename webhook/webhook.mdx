@@ -26,16 +26,16 @@ Example recording event from webhook:
   "call_sid": "string",  // Unique identifier for the call session
   "recording_attachment": "string",  // URL to the recording attachment
   "campaign": "string | null",  // Campaign ID associated with the call (nullable)
-  "contact": {
+  "customer": {
     "details": {
-      "id": "string",  // Unique identifier for the contact
-      "first_name": "string",  // First name of the contact
-      "last_name": "string",  // Last name of the contact
-      "phone_number": "string",  // Phone number of the contact
-      "gender": "string",  // Gender of the contact
-      "email": "string | null",  // Email address of the contact (nullable)
-      "type": "string | null",  // Type of contact (nullable)
-      "is_confirmed": "boolean",  // Whether the contact is confirmed
+      "id": "string",  // Unique identifier for the customer
+      "first_name": "string",  // First name of the customer
+      "last_name": "string",  // Last name of the customer
+      "phone_number": "string",  // Phone number of the customer
+      "gender": "string",  // Gender of the customer
+      "email": "string | null",  // Email address of the customer (nullable)
+      "type": "string | null",  // Type of customer (nullable)
+      "is_confirmed": "boolean",  // Whether the customer is confirmed
       "is_phone_number_correct": "boolean"  // Whether the phone number is correct
     },
     "roster_attachment": "string | null"  // URL to the customer list attachment (nullable)

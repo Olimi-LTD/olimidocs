@@ -1,0 +1,26 @@
+---
+title: 'Show Customer'
+openapi: 'GET /customers/{customer_id}/show'
+---
+
+Shows the details of a customer by its unique ID.
+
+### Request Parameters
+
+- `customer_id` (required): Unique ID of the customer to be displayed.
+
+### Response Example
+
+#### Success (200 OK)
+
+```json
+{
+  "id": "abc123",
+  "first_name": "string",
+  "last_name": "string",
+  "phone_number": "string",
+  "email": "string",
+  "gender": "string",
+  "created_at": "2024-10-10T12:26:21.000000Z",
+  "updated_at": "2024-10-10T12:26:21.000000Z"
+}
