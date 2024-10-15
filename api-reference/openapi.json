@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "http://api.olimi.ai"
+      "url": "https://api.olimi.ai"
     }
   ],
   "security": [
