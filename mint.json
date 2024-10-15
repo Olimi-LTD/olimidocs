@@ -70,12 +70,11 @@
       ]
     },
     {
-      "group": "Contact Management",
+      "group": "Customer Management",
       "pages": [
         "api-reference/endpoint/contacts/get-contacts-lists",
-        "api-reference/endpoint/contacts/create-contact",
         "api-reference/endpoint/contacts/get-contacts-list",
-        "api-reference/endpoint/contacts/import-contacts-list",
+        "api-reference/endpoint/contacts/create-contact",
         "api-reference/endpoint/contacts/delete-contact",
         "api-reference/endpoint/contacts/update-contact",
         "api-reference/endpoint/contacts/show-contact"
@@ -97,21 +96,8 @@
       ]
     },
     {
-      "group": "Customer list Management",
-      "pages": [
-        "api-reference/endpoint/customer-list/check-import-completion",
-        "api-reference/endpoint/customer-list/create-customer-list",
-        "api-reference/endpoint/customer-list/download-customer-list-templates",
-        "api-reference/endpoint/customer-list/update-customer-list",
-        "api-reference/endpoint/customer-list/confirm-contacts",
-        "api-reference/endpoint/customer-list/delete-customer-list",
-        "api-reference/endpoint/customer-list/fetch-customer-list"
-      ]
-    },
-    {
       "group": "Miscellaneous",
       "pages": [
-        "api-reference/endpoint/update-company",
         "api-reference/endpoint/get-countries",
         "api-reference/endpoint/fetch-languages"
       ]
