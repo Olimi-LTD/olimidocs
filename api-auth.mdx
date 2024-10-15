@@ -10,14 +10,41 @@ Secure access to the Olimi API is crucial for protecting your data and ensuring 
 
 Olimi uses Bearer Token authentication for all API requests. This method is simple, secure, and widely supported across different platforms and programming languages.
 
-### Obtaining a Bearer Token
+### Generating a Bearer Token
 
-To get started with the Olimi API, you'll need to obtain a bearer token:
+To authenticate with the Olimi API, you must first generate a bearer token using your API key. Follow these steps to generate the token programmatically:
 
-1. Log in to your Olimi dashboard.
-2. Navigate to the "Settings" section.
-3. Click on "API & Webhooks".
-4. Copy and securely store your bearer token.
+1. **Make a POST request** to the `generate-token` endpoint with your API key. Here’s the format of the request:
+
+   **Endpoint**: `{{base_url}}/api/generate-token`  
+   **Method**: `POST`  
+   **Body** (JSON):
+   ```json
+   {
+     "apiKey": "YOUR_API_KEY"
+   }
+
+   Replace YOUR_API_KEY with your actual API key.
+
+2. Upon successful authentication, you’ll receive a JSON response containing the bearer token.
+
+   
+ **Example Request**:
+
+   ```bash
+    curl -X POST {{base_url}}/api/generate-token -H "Content-Type: application/json" -d '{"apiKey": "YOUR_API_KEY"}'
+    ```
+
+    **Example Response**:
+      
+      ```json
+      {
+        'status': 'success',
+        'message': 'Bearer token generated successfully',
+        'token': 'YOUR BEARER TOKEN',
+        'expires_at': 'iso8601 date',
+      }
+      ```
 
 ### Using the Bearer Token
 
