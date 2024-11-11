@@ -1,83 +1,30 @@
 ---
 title: 'PBX Installation'
-description: 'Learn how to connect your PBX and extensions'
+description: 'Learn how to connect your PBX with SIP Trunks'
 ---
 
-## Prerequisite
+## Add your trunk details
 
-- **Asterisk 16.6+** installed on your Linux device or a supporting GUI.
-- **Node Package Manager (NPM)** to install the necessary package on the same Linux server as your Asterisk.
+#### Add your SIP Trunk
 
-## Setting up your PBX
+In the PBX section of your dashboard add your IP Address and port.
 
-#### Open the `ari.conf` File in Asterisk
+Optionally, add a prefix that you would like Olimi AI to add. This cause all outgoing calls to your SIP Trunk from Olimi AI will add this prefix at the beginning of the number for each call.
+This is to assist you with re-routing your calls to your preferred extensions.
 
-Locate and open the `ari.conf` file in your Asterisk configuration directory. This file is typically found in `/etc/asterisk/`.
+Select if you would like to connect with us through TLS rather than UDP.
+<Warning>Please note that although TLS connections is more secure, it is not recommend as it may cause reduced audio quality and latency delays. If you would like a secure connection with Olimi AI please contact our team to set up other secure options.</Warning>
 
-```bash
-sudo nano /etc/asterisk/ari.conf
-```
+#### Add Olimi AI SIP Trunk
 
-#### Configure ARI
-Add the following configuration to your `ari.conf` file. This includes setting up the ARI (Asterisk REST Interface) and configuring the Stasis application.
+Create a new Trunk in your PBX and add the information required from your PBX trunk configurations, such as the; IP Address, Port and secret. Make sure that the Auth is set to Both
 
-```ini ari.conf
-[general]
-enabled = yes
-pretty = yes
+If you have any firewall protections please make sure you whitelist all our IP addresses.
 
-[<ari-username>]
-type = user
-read_only = no
-password = <ari-password>
-
-[olimi-app]
-type = apps
-allowed_origins = 127.0.0.1
-```
-<Note>
-Replace `<ari-password>` and `<ari-username>` with your desired username and password.
-</Note>
-
-## Configuring Your Server and NAT
-
-### Open Port 3000 on Your Router
-Ensure that port 3000 is open on your router to allow external connections.
-
-### Disable NAT and Firewalls for Port 3000
-Disable any NAT (Network Address Translation) and firewalls for port 3000 using the following commands:
-
-```bash
-sudo iptables -A INPUT -p udp --dport 5060 -j ACCEPT
-sudo iptables -A INPUT -p tcp --dport 5060 -j ACCEPT
-sudo iptables -A INPUT -p udp --dport 10000:20000 -j ACCEPT
-sudo iptables -A INPUT -p tcp --dport 8088 -j ACCEPT
-sudo iptables-save | sudo tee /etc/iptables/rules.v4
-```
-<Warning> 
-Disabling firewalls can expose your system to potential security risks. Ensure you understand the implications before proceeding.
-</Warning>
-### Install the Node Package
-In a new terminal on the same Linux server as your PBX (Private Branch Exchange) server, install the Olimi Ltd package using NPM. Replace the placeholders `<account-email>`, `<ari-username>`, and `<ari-password>` with your actual details.
-
-```bash
-sudo npx olimi-ltd -u <account-email> -a <ari-username> -p <ari-password>
-```
-#### Enter Your Olimi.ai Account Password
-You will be prompted to enter your Olimi.ai account password during the installation process.
-
-## Verify the Connection
-Refresh your PBX to ensure that you are successfully connected.
+<Warning>It may take up to 1 business day for your PBX to be integrated, please contact us for any updates.</Warning>
 
 
-```bash
-sudo systemctl restart asterisk
-```
-<Tip>
-After restarting Asterisk, check the logs to verify that the ARI connection has been established successfully.
-</Tip>
-
-By following these steps, you will have successfully installed and configured the Olimi Ltd package on your Asterisk system. For further details and troubleshooting, refer to the official documentation or support channels.
+By following these steps, you will have successfully installed and configured Olimi AI. For further details and troubleshooting, refer to the official documentation or support channels.
 
 <Card horizontal="true" title="Book A Technical Call" icon="headset" href="https://calendar.app.google/aWmgaGtPSh4Q8PF98">
   You can book your technical call with us so we can assist you in setting up your PBX

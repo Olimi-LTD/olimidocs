@@ -3,28 +3,21 @@ title: Introduction
 description: 'Welcome to the comprehensive documentation for Olimi, your cutting-edge AI-powered communication solution.'
 ---
 ## How It Works
-Olimi seamlessly integrates advanced AI technology with your existing communication infrastructure, revolutionizing how you manage and optimize your telecommunications.
+Olimi seamlessly integrates its advanced AI call center technology with your existing communication infrastructure, revolutionizing how you manage and optimize your telecommunications.
 
 ```mermaid
 flowchart LR
-    id1(Olimi AI) <--> id2(Node Script)
-    subgraph yourServer["Your Server"]
-    id2 <--> id3(fa:fa-asterisk Asterisks PBX)
-    id3 <--> id4(Extensions)
-    end
+    id1(Olimi AI) <--> |SIP Trunk|id3(Your PBX)
+    id3 <--> id4(Your Extensions)
     id4 <--> id5(SIP Trunk)
     id4 <--> id6(PSTN)
     id4 <--> id7(GSM)
     id4 <--> id8(WebRTC)
     id4 <--> id9(VoIP)
-    
-    %% Apply background color, bold title, and dashed border to the subgraph
-    style yourServer fill:#00000000,stroke:#333,stroke-width:2px,stroke-dasharray:5 5,font-weight:bold
-
 
 ```
 
-Our innovative system connects Olimi AI to your server through a Node script, which interfaces with the Asterisk PBX. This setup allows for seamless integration with various communication channels, including SIP Trunks, PSTN, GSM, WebRTC, and VoIP, providing you with a versatile and powerful communication solution.
+Our innovative system connects Olimi AI to your SIP Trunks. This setup allows for seamless integration with various communication channels, including SIP Trunks, PSTN, GSM, WebRTC, and VoIP, providing you with a versatile and powerful communication solution.
 
 ## Getting Started
 
